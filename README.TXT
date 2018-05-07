@@ -1,12 +1,10 @@
 ------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
+World Cup betting by Marcus Schoch
 ------------------------------------------------------------------------
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
+PROJECT TITLE: World Cup betting
+PURPOSE OF PROJECT: Semester Project of the lecture 'Programmiersprachen 2' / Hs Aalen; Hfg Schwäbisch Gmünd
+VERSION or DATE: Version 1.0 07.05.2018
 HOW TO START THIS PROJECT:
-AUTHORS:
+AUTHORS: Marcus Schoch
 USER INSTRUCTIONS:
