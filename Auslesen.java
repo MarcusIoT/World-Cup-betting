@@ -7,14 +7,13 @@ import java.io.*;
  */
 public class Auslesen
 {
-
-
+    
     /**
      * Constructor for objects of class Auslesen
      */
     public Auslesen()
     {
-        
+
     }
 
     /**
@@ -23,18 +22,23 @@ public class Auslesen
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    public void test() throws IOException
-  {
-    FileReader fr = new FileReader("test.txt");
-    BufferedReader br = new BufferedReader(fr);
-
-    String zeile = "";
-
-    while( (zeile = br.readLine()) != null )
+    public String test() throws IOException
     {
-      System.out.println(zeile);
-    }
+        FileReader fr = new FileReader("test.txt");
+        BufferedReader br = new BufferedReader(fr);
+        
+        String daten = "";
 
-    br.close();
-  }
+        String zeile = "";
+
+        while( (zeile = br.readLine()) != null )
+        {
+            daten += zeile;
+            daten += "/";
+        }
+
+        br.close();
+        
+        return daten;
+    }
 }

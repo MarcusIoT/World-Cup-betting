@@ -4,22 +4,28 @@
  */
 public class Main
 {
-    
-    //private Nationen nation;
+
+    private Auslesen lesen;
 
     /**
      * Konstruktor
      */
     public Main()
     {
-        //nation = new Nationen();
+        lesen = new Auslesen();
     }
 
     /**
      * 
      */
-    public void neuesLandFertig()
+    public void test()
     {
-        //nation.erstelleLandFertig();
+        System.out.println();
+        try{
+            System.out.println(lesen.test());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
