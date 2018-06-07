@@ -2,15 +2,16 @@ import java.util.ArrayList;
 /**
  *
  */
-public class Nationen
+public class Gruppe
 {
    
     private ArrayList<Land> länder;
+    private int gruppenGroesse;
 
     /**
      * Konstructor
      */
-    public Nationen()
+    public Gruppe()
     {
          länder = new ArrayList<>();
     }
@@ -18,21 +19,23 @@ public class Nationen
     /**
      * 
      */
-    public void erstelleLand(String name, int tore, int punkte, String gruppe)
+    public void erstelleLand(String name)
     {
-        länder.add(new Land(name, tore, punkte, gruppe));
+        länder.add(new Land(name, 0, 0, 0));
+        gruppenGroesse += 1;
     }
     
-    /**
+    /** kann eigentlich weg
      * 
      */
     public void erstelleLandFertig()
     {
         String name = "Deutschland";
         int tore = 0;
+        int gegenTore = 0;
         int punkte = 0;
-        String gruppe = "H";
         
-        länder.add(new Land(name, tore, punkte, gruppe));
+        
+        länder.add(new Land(name, tore, gegenTore, punkte));
     }
 }

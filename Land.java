@@ -7,26 +7,28 @@ public class Land
     
     private String name;
     private int tore;
+    private int gegenTore;
     private int punkte;
-    private String gruppe;
+  
 
     /**
      * Konstruktor
      */
-    public Land(String name, int tore, int punkte, String gruppe)
+    public Land(String name, int tore, int gegenTore, int punkte)
     {
-        setWerte(name, tore, punkte, gruppe);
+        setWerte(name, tore, gegenTore, punkte);
     }
     
     /**
      * 
      */
-    public void setWerte (String name, int tore, int punkte, String gruppe)
+    public void setWerte (String name, int tore, int gegenTore, int punkte)
     {
         this.name = name;
         this.tore = tore;
+        this.gegenTore = gegenTore;
         this.punkte = punkte;
-        this.gruppe = gruppe;
+     
     }
 
 

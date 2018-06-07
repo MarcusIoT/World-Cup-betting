@@ -5,14 +5,14 @@
 public class Main
 {
     
-    private Nationen nation;
+    //private Nationen nation;
 
     /**
      * Konstruktor
      */
     public Main()
     {
-        nation = new Nationen();
+        //nation = new Nationen();
     }
 
     /**
@@ -20,6 +20,6 @@ public class Main
      */
     public void neuesLandFertig()
     {
-        nation.erstelleLandFertig();
+        //nation.erstelleLandFertig();
     }
 }
