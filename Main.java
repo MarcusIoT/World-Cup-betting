@@ -5,14 +5,14 @@
 public class Main
 {
 
-    private Auslesen lesen;
+    private IO io;
 
     /**
      * Konstruktor
      */
     public Main()
     {
-        lesen = new Auslesen();
+        io = new IO();
     }
 
     /**
@@ -22,7 +22,7 @@ public class Main
     {
         System.out.println();
         try{
-            System.out.println(lesen.test());
+            System.out.println(io.lade());
         }
         catch (Exception e) {
             e.printStackTrace();
