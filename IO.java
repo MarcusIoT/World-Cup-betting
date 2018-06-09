@@ -34,12 +34,13 @@ public class IO
 
         br.close();
     }
-    
-    public String lade() throws IOException
+
+    public String ladeGruppe(String text) throws IOException
     {
-        FileReader fr = new FileReader("test.txt");
+        String dateiName = "Gruppen/" + text + ".txt";
+        FileReader fr = new FileReader(dateiName);
         BufferedReader br = new BufferedReader(fr);
-        
+
         String daten = "";
 
         String zeile = "";
@@ -51,10 +52,31 @@ public class IO
         }
 
         br.close();
-        
+
         return daten;
     }
     
+     public String ladeLand(String text) throws IOException
+    {
+        String dateiName = "Länder/" + text + ".txt";
+        FileReader fr = new FileReader(dateiName);
+        BufferedReader br = new BufferedReader(fr);
+
+        String daten = "";
+
+        String zeile = "";
+
+        while( (zeile = br.readLine()) != null )
+        {
+            daten += zeile;
+            daten += "/";
+        }
+
+        br.close();
+
+        return daten;
+    }
+
     /**
      * 
      */
@@ -69,4 +91,27 @@ public class IO
 
         bw.close();
     }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    public void print(String text) throws IOException
+    {
+        String dateiName = text + ".txt";
+        FileReader fr = new FileReader(dateiName);
+        BufferedReader br = new BufferedReader(fr);
+
+        String zeile = "";
+
+        while( (zeile = br.readLine()) != null )
+        {
+            System.out.println(zeile);
+        }
+
+        br.close();
+    }
+
 }

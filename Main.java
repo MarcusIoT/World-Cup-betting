@@ -18,14 +18,16 @@ public class Main
     /**
      * 
      */
-    public void test()
+    public void gebeEineDateiAus()
     {
         System.out.println();
         try{
-            System.out.println(io.lade());
+            System.out.println(io.ladeGruppe("A"));
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+   
 }

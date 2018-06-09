@@ -18,14 +18,14 @@ public class Gruppenphase
      */
     public Gruppenphase()
     {
-        gruppeA = new Gruppe();
-        gruppeB = new Gruppe();
-        gruppeC = new Gruppe();
-        gruppeD = new Gruppe();
-        gruppeE = new Gruppe();
-        gruppeF = new Gruppe();
-        gruppeG = new Gruppe();
-        gruppeH = new Gruppe();
+        gruppeA = new Gruppe("A");
+        gruppeB = new Gruppe("B");
+        gruppeC = new Gruppe("C");
+        gruppeD = new Gruppe("D");
+        gruppeE = new Gruppe("E");
+        gruppeF = new Gruppe("F");
+        gruppeG = new Gruppe("G");
+        gruppeH = new Gruppe("H");
     }
 
     /**
