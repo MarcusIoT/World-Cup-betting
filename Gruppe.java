@@ -27,19 +27,6 @@ public class Gruppe
         länder.add(new Land(name, 0, 0, 0));
         gruppenGroesse += 1;
     }
-
-    /** kann eigentlich weg
-     * 
-     */
-    public void erstelleLandFertig()
-    {
-        String name = "Deutschland";
-        int tore = 0;
-        int gegenTore = 0;
-        int punkte = 0;
-
-        länder.add(new Land(name, tore, gegenTore, punkte));
-    }
     
     public void ladeLand(String name)
     {
@@ -51,10 +38,10 @@ public class Gruppe
             e.printStackTrace();
         }
         
-        String[] parts = daten.split("/");
-        int tore = Integer.valueOf(parts[1]);
-        int gegenTore = Integer.valueOf(parts[2]);
-        int punkte = Integer.valueOf(parts[3]);
+        String[] teile = daten.split("/");
+        int tore = Integer.valueOf(teile[1]);
+        int gegenTore = Integer.valueOf(teile[2]);
+        int punkte = Integer.valueOf(teile[3]);
         
         länder.add(new Land(name, tore, gegenTore, punkte));
     }
@@ -75,12 +62,12 @@ public class Gruppe
             e.printStackTrace();
         }
 
-        String[] parts = daten.split("/");
-        gruppenGroesse = Integer.valueOf(parts[0]);
-        ladeLand(parts[1]);
-        ladeLand(parts[2]);
-        ladeLand(parts[3]);
-        ladeLand(parts[4]);
+        String[] teile = daten.split("/");
+        gruppenGroesse = Integer.valueOf(teile[0]);
+        ladeLand(teile[1]);
+        ladeLand(teile[2]);
+        ladeLand(teile[3]);
+        ladeLand(teile[4]);
     }
 
 }

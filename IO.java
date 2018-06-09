@@ -35,10 +35,10 @@ public class IO
         br.close();
     }
 
-    public String ladeGruppe(String text) throws IOException
+    public String ladeGruppe(String dateiname) throws IOException
     {
-        String dateiName = "Gruppen/" + text + ".txt";
-        FileReader fr = new FileReader(dateiName);
+        String datei = "Gruppen/" + dateiname + ".txt";
+        FileReader fr = new FileReader(datei);
         BufferedReader br = new BufferedReader(fr);
 
         String daten = "";
@@ -56,10 +56,10 @@ public class IO
         return daten;
     }
     
-     public String ladeLand(String text) throws IOException
+     public String ladeLand(String dateiname) throws IOException
     {
-        String dateiName = "Länder/" + text + ".txt";
-        FileReader fr = new FileReader(dateiName);
+        String datei = "Länder/" + dateiname + ".txt";
+        FileReader fr = new FileReader(datei);
         BufferedReader br = new BufferedReader(fr);
 
         String daten = "";
@@ -91,27 +91,25 @@ public class IO
 
         bw.close();
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+    
+     /**
+     * 
      */
-    public void print(String text) throws IOException
+    public  void speichereLand(String dateiname, int tore, int gegentore, int punkte) throws IOException
     {
-        String dateiName = text + ".txt";
-        FileReader fr = new FileReader(dateiName);
-        BufferedReader br = new BufferedReader(fr);
+        String datei = "Länder/" + dateiname + ".txt";
+        FileWriter fw = new FileWriter(datei);
+        BufferedWriter bw = new BufferedWriter(fw);
 
-        String zeile = "";
 
-        while( (zeile = br.readLine()) != null )
-        {
-            System.out.println(zeile);
-        }
+        bw.write(0);
+        bw.newLine();
+        bw.write(tore);
+        bw.newLine();
+        bw.write(gegentore);
+        bw.newLine();
+        bw.write(punkte);
 
-        br.close();
+        bw.close();
     }
-
 }
