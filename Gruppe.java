@@ -32,7 +32,7 @@ public class Gruppe
     {
         String daten = "";
         try{
-            daten = io.ladeLand(name);
+            daten = io.ladeDatei("Länder", name);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -48,16 +48,13 @@ public class Gruppe
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * 
      */
     public void ladeGruppeninfo(String identifikation)
     {
         String daten = "";
         try{
-            daten = io.ladeGruppe(identifikation);
+            daten = io.ladeDatei("Gruppen", identifikation);
         }
         catch (Exception e) {
             e.printStackTrace();
