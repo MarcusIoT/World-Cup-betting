@@ -10,7 +10,6 @@ public class Gruppe
     private HashMap<String, Land> länderHash;
     private int gruppenGroesse;
     private IO io;
-    //private Land land;
 
     /**
      * Konstructor
@@ -20,7 +19,6 @@ public class Gruppe
         länder = new ArrayList<>();
         länderHash = new HashMap<>();
         io = new IO();
-        //land = new Land();
         ladeGruppeninfo(identifikation);
     }
 
@@ -70,10 +68,9 @@ public class Gruppe
 
         String[] teile = daten.split("/");
         gruppenGroesse = Integer.valueOf(teile[0]);
-        ladeLand(teile[1]);
-        ladeLand(teile[2]);
-        ladeLand(teile[3]);
-        ladeLand(teile[4]);
+        for (int i = 1; i < teile.length; i++) {
+            ladeLand(teile[i]);
+        }
     }
     
     /**
@@ -90,7 +87,7 @@ public class Gruppe
     /**
      *
      */
-    public String gibInfoLand(String name, int tore, int punkte)
+    public String gibUpdatedInfoLand(String name, int tore, int punkte)
     {
         Land land = länderHash.get(name);
         return land.gibUpdatedInfo(tore, punkte);

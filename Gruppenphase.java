@@ -35,7 +35,7 @@ public class Gruppenphase
     /**
      * 
      */
-    private String updateDatenSpielergebnis(String land, int tore, int punkte)
+    private String gibDatenSpielergebnis(String land, int tore, int punkte)
     {
         boolean check = false;
         String daten = "";
@@ -44,12 +44,12 @@ public class Gruppenphase
 
             if(gruppe.prüfeLand(land) == true){
                 check = true;      
-                gruppe.gibInfoLand(land, tore, punkte);
+                daten = gruppe.gibUpdatedInfoLand(land, tore, punkte);
             }
         }
 
         if(check == false){
-            System.out.println("Das Land " + land + " existiert nicht");
+            return null;
         }
 
         return daten;
@@ -59,6 +59,13 @@ public class Gruppenphase
     {
         Integer gruppe1 = null;
         Integer gruppe2 = null;
+        int punkte1 = 0;
+        int punkte2 = 0;
+        
+        if(tore1 > tore2){punkte1 = 3;}
+        if(tore1 < tore2){punkte2 = 3;}
+        if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
+        
         for (int i = 0; i < gruppen.size(); i++) {
             Gruppe gruppe = gruppen.get(i);
             if(gruppe.prüfeLand(land1) == true){
@@ -71,22 +78,22 @@ public class Gruppenphase
                 gruppe2 = i;
             }
         }
-        
-        int punkte1 = 0;
-        int punkte2 = 0;
-        if(tore1 > tore2){punkte1 = 3;}
-        if(tore1 < tore2){punkte2 = 3;}
-        if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
 
         if(gruppe1 == gruppe2){
             try{
-                io.speichereLand(updateDatenSpielergebnis(land1, tore1, punkte1));
+                if(gibDatenSpielergebnis(land1, tore1, punkte1) == null){
+                    System.out.println("Das Land " + land1 + " existiert nicht");
+                }
+                else{io.speichereLand(gibDatenSpielergebnis(land1, tore1, punkte1));}
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
             try{
-                io.speichereLand(updateDatenSpielergebnis(land2, tore2, punkte2));
+                if(gibDatenSpielergebnis(land2, tore2, punkte2) == null){
+                    System.out.println("Das Land " + land2 + " existiert nicht");
+                }
+                else{io.speichereLand(gibDatenSpielergebnis(land2, tore2, punkte2));}
             }
             catch (Exception e) {
                 e.printStackTrace();

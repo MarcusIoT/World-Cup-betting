@@ -51,8 +51,9 @@ public class GruppenphaseTest
     public void spielergebnisEingabeFalsch()
     {
         Gruppenphase gruppenp1 = new Gruppenphase();
-        gruppenp1.updateSpielergebnis("Schokolade", 3, "Honig", 4);
+        gruppenp1.updateSpielergebnis("schokolade", 2, "Honig", 1);
     }
 }
+
 
 
