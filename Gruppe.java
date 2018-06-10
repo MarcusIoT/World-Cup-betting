@@ -1,13 +1,10 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 /**
  *
  */
 public class Gruppe
 {
-
-    private ArrayList<Land> länder;
-    private HashMap<String, Land> länderHash;
+    private HashMap<String, Land> länder;
     private int gruppenGroesse;
     private IO io;
 
@@ -16,8 +13,7 @@ public class Gruppe
      */
     public Gruppe(String identifikation)
     {
-        länder = new ArrayList<>();
-        länderHash = new HashMap<>();
+        länder = new HashMap<>();
         io = new IO();
         ladeGruppeninfo(identifikation);
     }
@@ -27,7 +23,8 @@ public class Gruppe
      */
     public void erstelleLand(String name)
     {
-        länder.add(new Land(name, 0, 0, 0));
+        Land land = new Land(name, 0, 0, 0);
+        länder.put(name, land);
         gruppenGroesse += 1;
     }
     
@@ -47,7 +44,7 @@ public class Gruppe
         int gegenTore = Integer.valueOf(teile[2]);
         int punkte = Integer.valueOf(teile[3]);
         
-        länderHash.put(nameLand, new Land(nameLand, tore, gegenTore, punkte));
+        länder.put(nameLand, new Land(nameLand, tore, gegenTore, punkte));
     }
 
     /**
@@ -78,7 +75,7 @@ public class Gruppe
      */
     public boolean prüfeLand(String name)
     {
-        if(länderHash.containsKey(name)){
+        if(länder.containsKey(name)){
             return true;
         }
         else{return false;}
@@ -89,7 +86,7 @@ public class Gruppe
      */
     public String gibUpdatedInfoLand(String name, int tore, int punkte)
     {
-        Land land = länderHash.get(name);
+        Land land = länder.get(name);
         return land.gibUpdatedInfo(tore, punkte);
     }
     
