@@ -57,15 +57,15 @@ public class Gruppenphase
 
     public void updateSpielergebnis(String land1, int tore1, String land2, int tore2)
     {
-        Integer gruppe1 = null;
-        Integer gruppe2 = null;
+        Integer gruppe1 = 0;
+        Integer gruppe2 = 0;
         int punkte1 = 0;
         int punkte2 = 0;
-        
+
         if(tore1 > tore2){punkte1 = 3;}
         if(tore1 < tore2){punkte2 = 3;}
         if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
-        
+
         for (int i = 0; i < gruppen.size(); i++) {
             Gruppe gruppe = gruppen.get(i);
             if(gruppe.prüfeLand(land1) == true){
@@ -80,23 +80,28 @@ public class Gruppenphase
         }
 
         if(gruppe1 == gruppe2){
-            try{
-                if(gibDatenSpielergebnis(land1, tore1, punkte1) == null){
-                    System.out.println("Das Land " + land1 + " existiert nicht");
+            if(gibDatenSpielergebnis(land1, tore1, punkte1) == null){
+                System.out.println("Das Land " + land1 + " existiert nicht");
+            }
+            else{
+                try{
+                    io.speichereLand(gibDatenSpielergebnis(land1, tore1, punkte1));}
+
+                catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else{io.speichereLand(gibDatenSpielergebnis(land1, tore1, punkte1));}
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            
+            if(gibDatenSpielergebnis(land2, tore2, punkte2) == null){
+                System.out.println("Das Land " + land2 + " existiert nicht");
             }
-            try{
-                if(gibDatenSpielergebnis(land2, tore2, punkte2) == null){
-                    System.out.println("Das Land " + land2 + " existiert nicht");
+            else{
+                try{
+                    io.speichereLand(gibDatenSpielergebnis(land2, tore2, punkte2));
                 }
-                else{io.speichereLand(gibDatenSpielergebnis(land2, tore2, punkte2));}
-            }
-            catch (Exception e) {
-                e.printStackTrace();
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
