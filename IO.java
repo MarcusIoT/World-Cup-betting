@@ -95,13 +95,15 @@ public class IO
     /**
      * 
      */
-    public  void speichereLand(String dateiname, String daten) throws IOException
+    public  void speichereLand(String daten) throws IOException
     {
-        String datei = "Länder/" + dateiname + ".txt";
+        String[] teile = daten.split("/");
+        
+        String datei = "Länder/" + teile[0] + ".txt";
         FileWriter fw = new FileWriter(datei);
         BufferedWriter bw = new BufferedWriter(fw);
 
-        String[] teile = daten.split("/");
+        
 
         for (int x = 0; x < teile.length; x++) {
             bw.write(teile[x]);
