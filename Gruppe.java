@@ -90,10 +90,10 @@ public class Gruppe
     /**
      *
      */
-    public String gibInfoLand(String name)
+    public String gibInfoLand(String name, int tore, int punkte)
     {
         Land land = länderHash.get(name);
-        return land.gibInfo();
+        return land.gibUpdatedInfo(tore, punkte);
     }
     
 }

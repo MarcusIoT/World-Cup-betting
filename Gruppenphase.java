@@ -35,7 +35,7 @@ public class Gruppenphase
     /**
      * 
      */
-    private String gibDatenSpielergebnis(String land, int tore)
+    private String updateDatenSpielergebnis(String land, int tore, int punkte)
     {
         boolean check = false;
         String daten = "";
@@ -43,16 +43,8 @@ public class Gruppenphase
             Gruppe gruppe = gruppen.get(i);
 
             if(gruppe.prüfeLand(land) == true){
-                check = true;
-                String infoLand = "";
-                infoLand = gruppe.gibInfoLand(land);
-                String[] teile = infoLand.split("/");
-                teile[1] = String.valueOf(tore + Integer.valueOf(teile[1]));
-
-                for (int x = 0; x < teile.length; x++) {
-                    daten += teile[x];
-                    if(x<(teile.length-1)){daten += "/";};
-                }
+                check = true;      
+                gruppe.gibInfoLand(land, tore, punkte);
             }
         }
 
@@ -65,11 +57,41 @@ public class Gruppenphase
 
     public void updateSpielergebnis(String land1, int tore1, String land2, int tore2)
     {
-        try{
-            io.speichereLand(gibDatenSpielergebnis(land1, tore1));
+        Integer gruppe1 = null;
+        Integer gruppe2 = null;
+        for (int i = 0; i < gruppen.size(); i++) {
+            Gruppe gruppe = gruppen.get(i);
+            if(gruppe.prüfeLand(land1) == true){
+                gruppe1 = i;
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i < gruppen.size(); i++) {
+            Gruppe gruppe = gruppen.get(i);
+            if(gruppe.prüfeLand(land2) == true){
+                gruppe2 = i;
+            }
         }
+        
+        int punkte1 = 0;
+        int punkte2 = 0;
+        if(tore1 > tore2){punkte1 = 3;}
+        if(tore1 < tore2){punkte2 = 3;}
+        if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
+
+        if(gruppe1 == gruppe2){
+            try{
+                io.speichereLand(updateDatenSpielergebnis(land1, tore1, punkte1));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            try{
+                io.speichereLand(updateDatenSpielergebnis(land2, tore2, punkte2));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
     }
 }
