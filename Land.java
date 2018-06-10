@@ -38,4 +38,12 @@ public class Land
     {
        return name;
     }
+    
+      /**
+     *
+     */
+    public String gibInfo ()
+    {
+       return name + "/" + String.valueOf(tore) + "/" + String.valueOf(gegenTore) + "/" + String.valueOf(punkte);
+    }
 }

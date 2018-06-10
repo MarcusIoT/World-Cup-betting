@@ -55,8 +55,8 @@ public class IO
 
         return daten;
     }
-    
-     public String ladeLand(String dateiname) throws IOException
+
+    public String ladeLand(String dateiname) throws IOException
     {
         String datei = "Länder/" + dateiname + ".txt";
         FileReader fr = new FileReader(datei);
@@ -91,25 +91,23 @@ public class IO
 
         bw.close();
     }
-    
-     /**
+
+    /**
      * 
      */
-    public  void speichereLand(String dateiname, int tore, int gegentore, int punkte) throws IOException
+    public  void speichereLand(String dateiname, String daten) throws IOException
     {
         String datei = "Länder/" + dateiname + ".txt";
         FileWriter fw = new FileWriter(datei);
         BufferedWriter bw = new BufferedWriter(fw);
 
+        String[] teile = daten.split("/");
 
-        bw.write(0);
-        bw.newLine();
-        bw.write(tore);
-        bw.newLine();
-        bw.write(gegentore);
-        bw.newLine();
-        bw.write(punkte);
-
+        for (int x = 0; x < teile.length; x++) {
+            bw.write(teile[x]);
+            if(x<teile.length){bw.newLine();};
+        }
+        
         bw.close();
     }
 }
