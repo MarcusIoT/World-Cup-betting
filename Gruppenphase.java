@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.*;
 /**
@@ -6,7 +5,6 @@ import java.lang.*;
  */
 public class Gruppenphase
 {
-    private ArrayList<Gruppe> gruppen;
     private HashMap<String, Gruppe> gruppenHash; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
     private IO io;
 
@@ -15,7 +13,6 @@ public class Gruppenphase
      */
     public Gruppenphase()
     {
-        gruppen = new ArrayList<>();
         gruppenHash = new HashMap<>();
         ladeGruppen();
         io = new IO();
@@ -40,24 +37,25 @@ public class Gruppenphase
     /**
      * 
      */
-    private String gibDatenSpielergebnis(String land, int tore, int punkte)
+    private Gruppe gibGruppeWennLand(String land)
     {
-        boolean check = false;
         String daten = "";
 
         for (String key : gruppenHash.keySet()) {
             Gruppe gruppe = gruppenHash.get(key);
 
             if(gruppe.prüfeLand(land) == true){
-                check = true;      
-                daten = gruppe.gibUpdatedInfoLand(land, tore, punkte);
+                return gruppe;
             }
         }
 
-        if(check == false){
-            return null;
-        }
-
+        return null;
+    }
+    
+    private String gibDatenSpielergebnis(String land, int tore, int punkte)
+    {
+        Gruppe gruppe = gibGruppeWennLand(land);
+        String daten = gruppe.gibUpdatedInfoLand(land, tore, punkte);
         return daten;
     }
 
@@ -91,10 +89,11 @@ public class Gruppenphase
         System.out.println(gruppe1);
 
         String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
+        String datenSpieler = land1 + ":" + land2;
 
         if(gruppe1 == gruppe2){
             Gruppe gruppeEins = gruppenHash.get(gruppe1);
-            if(gruppeEins.gibDaten("Gruppen", gruppe1).contains(daten) == false){
+            if(gruppeEins.gibDaten("Gruppen", gruppe1).contains(datenSpieler) == false){
                 if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
                     try{
                         io.appendGruppe(gruppe1, daten);
@@ -115,7 +114,7 @@ public class Gruppenphase
      */
     public boolean speichereLand(String land, int tore, int punkte)
     {
-        if(gibDatenSpielergebnis(land, tore, punkte) == null){
+        if(gibGruppeWennLand(land) == null){
             System.out.println("Das Land " + land + " existiert nicht");
             return false;
         }
