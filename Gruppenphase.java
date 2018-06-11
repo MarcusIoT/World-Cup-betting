@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 /**
  * 
  */
 public class Gruppenphase
 {
     private ArrayList<Gruppe> gruppen;
-    // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
+    private HashMap<String, Gruppe> gruppenHash; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
     private IO io;
 
     /**
@@ -14,6 +15,7 @@ public class Gruppenphase
     public Gruppenphase()
     {
         gruppen = new ArrayList<>();
+        gruppenHash = new HashMap<>();
         ladeGruppen();
         io = new IO();
     }
@@ -23,14 +25,15 @@ public class Gruppenphase
      */
     public void ladeGruppen()
     {
-        gruppen.add(new Gruppe("A"));
-        gruppen.add(new Gruppe("B"));
-        gruppen.add(new Gruppe("C"));
-        gruppen.add(new Gruppe("D"));
-        gruppen.add(new Gruppe("E"));
-        gruppen.add(new Gruppe("F"));
-        gruppen.add(new Gruppe("G"));
-        gruppen.add(new Gruppe("H"));
+        gruppenHash.put("A", new Gruppe("A"));
+        gruppenHash.put("B", new Gruppe("B"));
+        gruppenHash.put("C", new Gruppe("C"));
+        gruppenHash.put("D", new Gruppe("D"));
+        gruppenHash.put("E", new Gruppe("E"));
+        gruppenHash.put("F", new Gruppe("F"));
+        gruppenHash.put("G", new Gruppe("G"));
+        gruppenHash.put("H", new Gruppe("H"));
+        // alt: gruppen.add(new Gruppe("A"));
     }
 
     /**
@@ -40,8 +43,9 @@ public class Gruppenphase
     {
         boolean check = false;
         String daten = "";
-        for (int i = 0; i < gruppen.size(); i++) {
-            Gruppe gruppe = gruppen.get(i);
+
+        for (String key : gruppenHash.keySet()) {
+            Gruppe gruppe = gruppenHash.get(key);
 
             if(gruppe.prüfeLand(land) == true){
                 check = true;      
@@ -58,8 +62,8 @@ public class Gruppenphase
 
     public void updateSpielergebnis(String land1, int tore1, String land2, int tore2)
     {
-        Integer gruppe1 = 0;
-        Integer gruppe2 = 0;
+        String gruppe1 = "";
+        String gruppe2 = "";
         int punkte1 = 0;
         int punkte2 = 0;
 
@@ -67,27 +71,39 @@ public class Gruppenphase
         if(tore1 < tore2){punkte2 = 3;}
         if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
 
-        for (int i = 0; i < gruppen.size(); i++) {
-            Gruppe gruppe = gruppen.get(i);
+        for (String key : gruppenHash.keySet()) {
+            Gruppe gruppe = gruppenHash.get(key);
+
             if(gruppe.prüfeLand(land1) == true){
-                gruppe1 = i;
-            }
-        }
-        for (int i = 0; i < gruppen.size(); i++) {
-            Gruppe gruppe = gruppen.get(i);
-            if(gruppe.prüfeLand(land2) == true){
-                gruppe2 = i;
+                gruppe1 = key;
             }
         }
 
-        if(gruppe1 == gruppe2){
-            Gruppe gruppeEins = gruppen.get(gruppe1);
-            
-            if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
-                gruppeEins.speichereErgebnis(land1, land2, tore1, tore2);
-                // hier kommt io.appendGruppe
+        for (String key : gruppenHash.keySet()) {
+            Gruppe gruppe = gruppenHash.get(key);
+
+            if(gruppe.prüfeLand(land2) == true){
+                gruppe2 = key;
             }
-           
+        }
+        System.out.println("gruppe1: ");
+        System.out.println(gruppe1);
+
+        if(gruppe1 == gruppe2){
+            Gruppe gruppeEins = gruppenHash.get(gruppe1);
+
+            if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
+                String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
+                
+                try{
+                    io.appendGruppe(gruppe1, daten);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                gruppeEins.ladeGruppeninfo(gruppe1);
+            }
+
         }
         else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
     }

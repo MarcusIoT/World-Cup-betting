@@ -11,12 +11,12 @@ public class Gruppe
     /**
      * Konstructor
      */
-    public Gruppe(String identifikation)
+    public Gruppe(String name)
     {
         länder = new HashMap<>();
         spiele = new HashMap<>();
         io = new IO();
-        ladeGruppeninfo(identifikation);
+        ladeGruppeninfo(name);
     }
 
     /**
@@ -28,45 +28,56 @@ public class Gruppe
         länder.put(name, land);
         gruppenGroesse += 1;
     }
-    
+
     public void ladeLand(String name)
     {
-        String daten = "";
-        try{
-            daten = io.ladeDatei("Länder", name);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        String[] teile = daten.split("/");
+        String[] teile = gibDaten("Länder", name);
+
         String nameLand = teile[0];
         int tore = Integer.valueOf(teile[1]);
         int punkte = Integer.valueOf(teile[2]);
-        
+
         länder.put(nameLand, new Land(nameLand, tore, punkte));
+
     }
 
     /**
      * 
      */
-    public void ladeGruppeninfo(String identifikation)
+    public void ladeGruppeninfo(String name)
+    {
+        String[] teile = gibDaten("Gruppen", name);
+
+        gruppenGroesse = Integer.valueOf(teile[0]);
+        for (int i = 1; i <= gruppenGroesse; i++) {
+            ladeLand(teile[i]);
+        }
+
+        if(teile.length >= gruppenGroesse+2){
+            for (int i = gruppenGroesse+1; i < teile.length; i++) {
+                String[] daten = teile[i].split("-");
+                spiele.put(daten[0], daten[1]);
+            }
+        }
+    }
+
+    /**
+     * 
+     */
+    public String[] gibDaten(String ordner, String datei)
     {
         String daten = "";
         try{
-            daten = io.ladeDatei("Gruppen", identifikation);
+            daten = io.ladeDatei(ordner, datei);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
         String[] teile = daten.split("/");
-        gruppenGroesse = Integer.valueOf(teile[0]);
-        for (int i = 1; i < teile.length; i++) {
-            ladeLand(teile[i]);
-        }
+        return teile;
     }
-    
+
     /**
      *
      */
@@ -85,17 +96,5 @@ public class Gruppe
     {
         Land land = länder.get(name);
         return land.gibUpdatedInfo(tore, punkte);
-    }
-    
-    /**
-     *
-     */
-    public String speichereErgebnis(String land1, String land2, int tore1, int tore2)
-    {
-        String spieler = land1 + ":" + land2;
-        String ergebnis = tore1 + ":" + tore2;
-        spiele.put(spieler, ergebnis);
-        String daten = spieler + "/" + ergebnis;
-        return daten;
     }
 }

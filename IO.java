@@ -60,22 +60,22 @@ public class IO
     /**
      * 
      */
-    public  void appendGruppe(String daten) throws IOException
+    public  void appendGruppe(String dateiName, String daten) throws IOException
     {
         //hier brauche ich die Info welche Gruppe es ist
         
-        String[] teile = daten.split("/");
+        String datenAlt = ladeDatei("Gruppen", dateiName);
         
-        String datei = "Gruppe/" + teile[0] + ".txt";
-        FileWriter fw = new FileWriter(datei);
+        String datei = "Gruppen/" + dateiName + ".txt";
+        FileWriter fw = new FileWriter(datei, true);
         BufferedWriter bw = new BufferedWriter(fw);
 
         
-
-        for (int x = 0; x < teile.length; x++) {
-            bw.write(teile[x]);
-            if(x<teile.length){bw.newLine();};
+        if(!datenAlt.contains(daten)){
+            bw.newLine();
+            bw.write(daten);
         }
+       
         
         bw.close();
     }
