@@ -8,6 +8,7 @@ public class Gruppenphase
 {
     private HashMap<String, Gruppe> gruppenHash; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
     private IO io;
+    private Meldung meldung;
 
     /**
      * Constructor for objects of class Gruppen
@@ -17,6 +18,7 @@ public class Gruppenphase
         gruppenHash = new HashMap<>();
         ladeGruppen();
         io = new IO();
+        meldung = new Meldung();
     }
 
     /**
@@ -33,6 +35,18 @@ public class Gruppenphase
         gruppenHash.put("G", new Gruppe("G"));
         gruppenHash.put("H", new Gruppe("H"));
     }
+    
+    /**
+     * 
+     */
+    public void testJOption()
+    {
+        if(meldung.popUp() == true){
+            System.out.println("hat geklappt");
+        }
+        else System.out.println("hat auch geklappt");
+    }
+
 
     /**
      * 
