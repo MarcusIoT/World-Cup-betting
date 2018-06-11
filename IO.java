@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.*;
 /**
  * Write a description of class Auslesen here.
  *
@@ -71,7 +72,7 @@ public class IO
         BufferedWriter bw = new BufferedWriter(fw);
 
         
-        if(!datenAlt.contains(daten)){
+        if(datenAlt.contains(daten) == false){
             bw.newLine();
             bw.write(daten);
         }

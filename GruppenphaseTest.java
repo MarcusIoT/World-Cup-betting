@@ -47,12 +47,6 @@ public class GruppenphaseTest
         gruppenp1.updateSpielergebnis("Argentinien", 2, "Island", 1);
     }
 
-    @Test
-    public void spielergebnisEingabeFalsch()
-    {
-        Gruppenphase gruppenp1 = new Gruppenphase();
-        gruppenp1.updateSpielergebnis("schokolade", 2, "Honig", 1);
-    }
 }
 
 

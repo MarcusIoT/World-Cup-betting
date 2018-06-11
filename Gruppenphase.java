@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.lang.*;
 /**
  * 
  */
@@ -89,21 +90,22 @@ public class Gruppenphase
         System.out.println("gruppe1: ");
         System.out.println(gruppe1);
 
+        String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
+
         if(gruppe1 == gruppe2){
             Gruppe gruppeEins = gruppenHash.get(gruppe1);
-
-            if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
-                String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
-                
-                try{
-                    io.appendGruppe(gruppe1, daten);
+            if(gruppeEins.gibDaten("Gruppen", gruppe1).contains(daten) == false){
+                if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
+                    try{
+                        io.appendGruppe(gruppe1, daten);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    gruppeEins.ladeGruppeninfo(gruppe1);
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-                gruppeEins.ladeGruppeninfo(gruppe1);
             }
-
+            else{System.out.println("Das Ergebnis wurde bereits eingegeben!");}
         }
         else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
     }

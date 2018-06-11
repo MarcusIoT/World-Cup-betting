@@ -42,9 +42,9 @@ public class Land
 
     public String gibUpdatedInfo (int tore, int punkte)
     {
-        this.tore = tore;
-        this.punkte = punkte;
-        return name + "/" + String.valueOf(tore) + "/" + String.valueOf(punkte);
+        this.tore += tore;
+        this.punkte += punkte;
+        return name + "/" + String.valueOf(this.tore) + "/" + String.valueOf(this.punkte);
     }
     
 }

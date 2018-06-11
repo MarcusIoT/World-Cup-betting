@@ -31,7 +31,7 @@ public class Gruppe
 
     public void ladeLand(String name)
     {
-        String[] teile = gibDaten("Länder", name);
+        String[] teile = gibDatenTeile("Länder", name);
 
         String nameLand = teile[0];
         int tore = Integer.valueOf(teile[1]);
@@ -46,7 +46,7 @@ public class Gruppe
      */
     public void ladeGruppeninfo(String name)
     {
-        String[] teile = gibDaten("Gruppen", name);
+        String[] teile = gibDatenTeile("Gruppen", name);
 
         gruppenGroesse = Integer.valueOf(teile[0]);
         for (int i = 1; i <= gruppenGroesse; i++) {
@@ -64,7 +64,7 @@ public class Gruppe
     /**
      * 
      */
-    public String[] gibDaten(String ordner, String datei)
+    public String[] gibDatenTeile(String ordner, String datei)
     {
         String daten = "";
         try{
@@ -76,6 +76,18 @@ public class Gruppe
 
         String[] teile = daten.split("/");
         return teile;
+    }
+    
+    public String gibDaten(String ordner, String datei)
+    {
+        String daten = "";
+        try{
+            daten = io.ladeDatei(ordner, datei);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return daten; 
     }
 
     /**
