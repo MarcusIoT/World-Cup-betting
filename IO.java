@@ -56,4 +56,27 @@ public class IO
         
         bw.close();
     }
+    
+    /**
+     * 
+     */
+    public  void appendGruppe(String daten) throws IOException
+    {
+        //hier brauche ich die Info welche Gruppe es ist
+        
+        String[] teile = daten.split("/");
+        
+        String datei = "Gruppe/" + teile[0] + ".txt";
+        FileWriter fw = new FileWriter(datei);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        
+
+        for (int x = 0; x < teile.length; x++) {
+            bw.write(teile[x]);
+            if(x<teile.length){bw.newLine();};
+        }
+        
+        bw.close();
+    }
 }

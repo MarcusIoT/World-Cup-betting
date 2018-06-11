@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Gruppenphase
 {
     private ArrayList<Gruppe> gruppen;
+    // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
     private IO io;
 
     /**
@@ -80,30 +81,35 @@ public class Gruppenphase
         }
 
         if(gruppe1 == gruppe2){
-            if(gibDatenSpielergebnis(land1, tore1, punkte1) == null){
-                System.out.println("Das Land " + land1 + " existiert nicht");
-            }
-            else{
-                try{
-                    io.speichereLand(gibDatenSpielergebnis(land1, tore1, punkte1));}
-
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            Gruppe gruppeEins = gruppen.get(gruppe1);
             
-            if(gibDatenSpielergebnis(land2, tore2, punkte2) == null){
-                System.out.println("Das Land " + land2 + " existiert nicht");
+            if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
+                gruppeEins.speichereErgebnis(land1, land2, tore1, tore2);
+                // hier kommt io.appendGruppe
             }
-            else{
-                try{
-                    io.speichereLand(gibDatenSpielergebnis(land2, tore2, punkte2));
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+           
         }
         else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
     }
+
+    /**
+     * 
+     */
+    public boolean speichereLand(String land, int tore, int punkte)
+    {
+        if(gibDatenSpielergebnis(land, tore, punkte) == null){
+            System.out.println("Das Land " + land + " existiert nicht");
+            return false;
+        }
+        else{
+            try{
+                io.speichereLand(gibDatenSpielergebnis(land, tore, punkte));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+    }
+
 }
