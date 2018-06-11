@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.lang.*;
+import java.io.*;
 /**
  * 
  */
@@ -31,7 +32,6 @@ public class Gruppenphase
         gruppenHash.put("F", new Gruppe("F"));
         gruppenHash.put("G", new Gruppe("G"));
         gruppenHash.put("H", new Gruppe("H"));
-        // alt: gruppen.add(new Gruppe("A"));
     }
 
     /**
@@ -62,7 +62,7 @@ public class Gruppenphase
     /**
      * 
      */
-    public String prüfeLänderInGruppe(String land1, String land2)
+    private String prüfeLänderInGruppe(String land1, String land2)
     {
         String gruppe1 = "";
         String gruppe2 = "";
@@ -86,22 +86,27 @@ public class Gruppenphase
     }
 
 
-    public void updateSpielergebnis(String land1, int tore1, String land2, int tore2)
+    public void updateSpielergebnis(String land1klein, int tore1, String land2klein, int tore2)
     {
         int punkte1 = 0;
         int punkte2 = 0;
-
+        String land1 = schreibeGroß(land1klein);
+        String land2 = schreibeGroß(land2klein);
+        
         if(tore1 > tore2){punkte1 = 3;}
         if(tore1 < tore2){punkte2 = 3;}
         if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
 
         String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
         String datenSpieler = land1 + ":" + land2;
+        String datenSpielerRück = land2 + ":" + land1;
         String gruppe = prüfeLänderInGruppe(land1, land2);
 
         if(prüfeLänderInGruppe(land1, land2) != null){
             Gruppe gruppeEins = gruppenHash.get(gruppe);
-            if(gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpieler) == false){
+            if(gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpieler) == false
+                && gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpielerRück) == false){
+                
                 if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
                     try{
                         io.appendGruppe(gruppe, daten);
@@ -135,6 +140,15 @@ public class Gruppenphase
             }
             return true;
         }
+    }
+    
+    /**
+     * 
+     */
+    private String schreibeGroß(String eingabe)
+    {
+        String ausgabe = eingabe.substring(0, 1).toUpperCase() + eingabe.substring(1);
+        return ausgabe;
     }
 
 }
