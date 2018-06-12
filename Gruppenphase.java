@@ -51,10 +51,19 @@ public class Gruppenphase
     {
         ui.nachricht("Nicht gut", "error 404 es ist ein Fehler aufgetreten");
     }
-    
+
     public void testEingabeAufforderung()
     {
         System.out.println(ui.eingabeAufforderung("Ihr Name", "Geben Sie bitte ihren Namen ein"));
+    }
+
+    public void testEingabeAufforderungSpielergebnis()
+    {
+        String[] daten = ui.eingabeAufforderungSpielergebnis();
+        for (String element : daten) {
+            System.out.println(element);
+        }
+        System.out.println();
     }
 
     /**
@@ -107,28 +116,26 @@ public class Gruppenphase
         else{return null;}
 
     }
-    
+
     /**
      * 
      */
     public int[] berechnePunkte(int tore1, int tore2)
     {
-        int punkte[];
-        
-        if(tore1 > tore2){punkte[1] = 3;}
-        if(tore1 < tore2){punkte[2] = 3;}
-        if(tore1 == tore2){punkte[1] = 1; punkte[2] = 1;}
-        return punkte[]; // muss noch fertig
-    }
+        int[] punkte = {0, 0};
 
+        if(tore1 > tore2){punkte[0] = 3;}
+        if(tore1 < tore2){punkte[1] = 3;}
+        if(tore1 == tore2){punkte[0] = 1; punkte[1] = 1;}
+        return punkte; // muss noch fertig
+    }
 
     public void updateSpielergebnis(String land1klein, int tore1, String land2klein, int tore2)
     {
-        
-        // das array auflösen
+        int[] punkte = berechnePunkte(tore1, tore2);
+
         String land1 = schreibeGroß(land1klein);
         String land2 = schreibeGroß(land2klein);
-
 
         String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
         String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
@@ -137,7 +144,7 @@ public class Gruppenphase
             Gruppe gruppe = gruppenHash.get(gruppeDerLänder);
             if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
 
-                if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
+                if(speichereLand(land1, tore1, punkte[0]) && speichereLand(land2, tore2, punkte[1])== true){
                     try{
                         io.appendGruppe(gruppeDerLänder, daten);
                     }

@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 /**
  * Write a description of class JOptionPane here.
  *
@@ -50,6 +51,28 @@ public class UI
                 "Eine Eingabeaufforderung",
                 JOptionPane.PLAIN_MESSAGE);
         return eingabe;
+    }
+
+    /**
+     * 
+     */
+    public String[] eingabeAufforderungSpielergebnis()
+    {
+        JTextField mannschaft1 = new JTextField();
+        JTextField tore1 = new JTextField();
+        JTextField mannschaft2 = new JTextField();
+        JTextField tore2 = new JTextField();
+        Object[] message = {"Mannschaft", mannschaft1, 
+                "Tore", tore1, "Mannschaft", mannschaft2, 
+                "Tore", tore2};
+
+        JOptionPane pane = new JOptionPane( message, 
+                JOptionPane.PLAIN_MESSAGE, 
+                JOptionPane.OK_CANCEL_OPTION);
+        pane.createDialog(null, "Spielergebnis").setVisible(true);
+
+        String[] daten = {mannschaft1.getText(), tore1.getText(), mannschaft2.getText(), tore2.getText()};
+        return daten;
     }
 
 }
