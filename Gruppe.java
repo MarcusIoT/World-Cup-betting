@@ -77,7 +77,7 @@ public class Gruppe
         String[] teile = daten.split("/");
         return teile;
     }
-    
+
     public String gibDaten(String ordner, String datei)
     {
         String daten = "";
@@ -88,6 +88,19 @@ public class Gruppe
             e.printStackTrace();
         }
         return daten; 
+    }
+
+    /**
+     * 
+     */
+    public boolean prüfeExistenzSpielergebnis (String land1, String land2)
+    {
+        String spiel = land1 + ":" + land2;
+        String spielRück = land2 + ":" + land1;
+        if(spiele.containsKey(spiel) == false && spiele.containsKey(spielRück) == false){
+            return false;
+        }
+        else return true;
     }
 
     /**

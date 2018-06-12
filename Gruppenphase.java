@@ -107,36 +107,44 @@ public class Gruppenphase
         else{return null;}
 
     }
+    
+    /**
+     * 
+     */
+    public int[] berechnePunkte(int tore1, int tore2)
+    {
+        int punkte[];
+        
+        if(tore1 > tore2){punkte[1] = 3;}
+        if(tore1 < tore2){punkte[2] = 3;}
+        if(tore1 == tore2){punkte[1] = 1; punkte[2] = 1;}
+        return punkte[]; // muss noch fertig
+    }
+
 
     public void updateSpielergebnis(String land1klein, int tore1, String land2klein, int tore2)
     {
-        int punkte1 = 0;
-        int punkte2 = 0;
+        
+        // das array auflösen
         String land1 = schreibeGroß(land1klein);
         String land2 = schreibeGroß(land2klein);
 
-        if(tore1 > tore2){punkte1 = 3;}
-        if(tore1 < tore2){punkte2 = 3;}
-        if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
 
         String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
-        String datenSpieler = land1 + ":" + land2;
-        String datenSpielerRück = land2 + ":" + land1;
-        String gruppe = prüfeLänderInGruppe(land1, land2);
+        String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
 
-        if(prüfeLänderInGruppe(land1, land2) != null){
-            Gruppe gruppeEins = gruppenHash.get(gruppe);
-            if(gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpieler) == false
-            && gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpielerRück) == false){
+        if(gruppeDerLänder != null){
+            Gruppe gruppe = gruppenHash.get(gruppeDerLänder);
+            if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
 
                 if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
                     try{
-                        io.appendGruppe(gruppe, daten);
+                        io.appendGruppe(gruppeDerLänder, daten);
                     }
                     catch (Exception e) {
                         e.printStackTrace();
                     }
-                    gruppeEins.ladeGruppeninfo(gruppe);
+                    gruppe.ladeGruppeninfo(gruppeDerLänder);
                 }
             }
             else{System.out.println("Das Ergebnis wurde bereits eingegeben!");}
