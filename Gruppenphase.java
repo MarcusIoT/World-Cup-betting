@@ -8,7 +8,7 @@ public class Gruppenphase
 {
     private HashMap<String, Gruppe> gruppenHash; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
     private IO io;
-    private Meldung meldung;
+    private UI ui;
 
     /**
      * Constructor for objects of class Gruppen
@@ -18,7 +18,7 @@ public class Gruppenphase
         gruppenHash = new HashMap<>();
         ladeGruppen();
         io = new IO();
-        meldung = new Meldung();
+        ui = new UI();
     }
 
     /**
@@ -35,18 +35,27 @@ public class Gruppenphase
         gruppenHash.put("G", new Gruppe("G"));
         gruppenHash.put("H", new Gruppe("H"));
     }
-    
+
     /**
      * 
      */
-    public void testJOption()
+    public void testJaNeinAbbrechen()
     {
-        if(meldung.popUp() == true){
+        if(ui.jaNeinAbbrechen("Bestätigung", "Wollen sie diese Aktion wirklich durchführen?") == "Ja"){
             System.out.println("hat geklappt");
         }
         else System.out.println("hat auch geklappt");
     }
 
+    public void testNachricht()
+    {
+        ui.nachricht("Nicht gut", "error 404 es ist ein Fehler aufgetreten");
+    }
+    
+    public void testEingabeAufforderung()
+    {
+        System.out.println(ui.eingabeAufforderung("Ihr Name", "Geben Sie bitte ihren Namen ein"));
+    }
 
     /**
      * 
@@ -65,14 +74,14 @@ public class Gruppenphase
 
         return null;
     }
-    
+
     private String gibDatenSpielergebnis(String land, int tore, int punkte)
     {
         Gruppe gruppe = gibGruppeWennLand(land);
         String daten = gruppe.gibUpdatedInfoLand(land, tore, punkte);
         return daten;
     }
-    
+
     /**
      * 
      */
@@ -80,7 +89,7 @@ public class Gruppenphase
     {
         String gruppe1 = "";
         String gruppe2 = "";
-        
+
         for (String key : gruppenHash.keySet()) {
             Gruppe gruppe = gruppenHash.get(key);
 
@@ -91,14 +100,13 @@ public class Gruppenphase
                 gruppe2 = key;
             }
         }
-        
+
         if(gruppe1 == gruppe2){
             return gruppe1;
         }
         else{return null;}
-        
-    }
 
+    }
 
     public void updateSpielergebnis(String land1klein, int tore1, String land2klein, int tore2)
     {
@@ -106,7 +114,7 @@ public class Gruppenphase
         int punkte2 = 0;
         String land1 = schreibeGroß(land1klein);
         String land2 = schreibeGroß(land2klein);
-        
+
         if(tore1 > tore2){punkte1 = 3;}
         if(tore1 < tore2){punkte2 = 3;}
         if(tore1 == tore2){punkte1 = 1; punkte2 = 1;}
@@ -119,8 +127,8 @@ public class Gruppenphase
         if(prüfeLänderInGruppe(land1, land2) != null){
             Gruppe gruppeEins = gruppenHash.get(gruppe);
             if(gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpieler) == false
-                && gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpielerRück) == false){
-                
+            && gruppeEins.gibDaten("Gruppen", gruppe).contains(datenSpielerRück) == false){
+
                 if(speichereLand(land1, tore1, punkte1) && speichereLand(land2, tore2, punkte2)== true){
                     try{
                         io.appendGruppe(gruppe, daten);
@@ -155,7 +163,7 @@ public class Gruppenphase
             return true;
         }
     }
-    
+
     /**
      * 
      */
