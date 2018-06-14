@@ -204,5 +204,22 @@ public class Gruppenphase
         System.out.println(daten);
         ui.erstelleSpielplan(daten);
     }
+    
+    /**
+     *
+     */
+    public void löscheAlleEinträge()
+    {
+        if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
+            
+            for (String key : gruppenHash.keySet()) {
+            Gruppe gruppe = gruppenHash.get(key);
 
+            
+        }
+        
+        }
+    }
+
+    
 }

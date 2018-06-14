@@ -64,7 +64,7 @@ public class Gruppe
     /**
      * 
      */
-    public String[] gibDatenTeile(String ordner, String datei)
+    private String[] gibDatenTeile(String ordner, String datei)
     {
         String daten = "";
         try{
@@ -78,7 +78,7 @@ public class Gruppe
         return teile;
     }
 
-    public String gibDaten(String ordner, String datei)
+    private String gibDaten(String ordner, String datei)
     {
         String daten = "";
         try{
@@ -96,11 +96,11 @@ public class Gruppe
     public String gibSpielergebnisDaten()
     {
         String daten = "";
-        
-        for (String key : spiele.keySet()) {
-            daten += (key + "-" + spiele.get(key) + "<br/>");
-        }
         daten += "!";
+        for (String key : spiele.keySet()) {
+            daten += (key + "-" + spiele.get(key) + "/");
+        }
+        
         return daten;
     }
 

@@ -34,6 +34,18 @@ public class UI
         }
         else return "Abbrechen";
     }
+    
+    public boolean okAbbrechen(String kopfzeile, String nachricht)
+    {
+        int eingabe = JOptionPane.showConfirmDialog(null,
+                nachricht,
+                kopfzeile,
+                JOptionPane.OK_CANCEL_OPTION);
+        if(eingabe == 0){
+            return true;
+        }
+        else return false;
+    }
 
     public void nachricht(String kopfzeile, String nachricht)
     {
