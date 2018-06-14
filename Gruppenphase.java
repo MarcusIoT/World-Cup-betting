@@ -120,7 +120,7 @@ public class Gruppenphase
     /**
      * 
      */
-    public int[] berechnePunkte(int tore1, int tore2)
+    private int[] berechnePunkte(int tore1, int tore2)
     {
         int[] punkte = {0, 0};
 
@@ -186,6 +186,23 @@ public class Gruppenphase
     {
         String ausgabe = eingabe.substring(0, 1).toUpperCase() + eingabe.substring(1);
         return ausgabe;
+    }
+    
+    /**
+     * ToDo
+     */
+    public void gibAlleSpielergebnise ()
+    {
+        String daten = "";
+
+        for (String key : gruppenHash.keySet()) {
+            Gruppe gruppe = gruppenHash.get(key);
+            daten += gruppe.gibSpielergebnisDaten();
+            
+        }
+        
+        System.out.println(daten);
+        ui.erstelleSpielplan(daten);
     }
 
 }

@@ -89,6 +89,20 @@ public class Gruppe
         }
         return daten; 
     }
+    
+    /**
+     * ToDo
+     */
+    public String gibSpielergebnisDaten()
+    {
+        String daten = "";
+        
+        for (String key : spiele.keySet()) {
+            daten += (key + "-" + spiele.get(key) + "<br/>");
+        }
+        daten += "!";
+        return daten;
+    }
 
     /**
      * 

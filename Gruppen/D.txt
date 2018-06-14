@@ -4,3 +4,5 @@ Island
 Kroatien
 Nigeria
 Island:Argentinien-5:1
+Island:Kroatien-3:2
+Kroatien:Argentinien-2:2

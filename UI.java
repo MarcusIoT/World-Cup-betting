@@ -1,5 +1,6 @@
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.*;
+
 /**
  * Write a description of class JOptionPane here.
  *
@@ -73,6 +74,26 @@ public class UI
 
         String[] daten = {mannschaft1.getText(), tore1.getText(), mannschaft2.getText(), tore2.getText()};
         return daten;
+    }
+
+    /**
+     * ToDo
+     */
+    public void erstelleSpielplan(String daten)
+    {
+        String [] teile = daten.split("!");
+        System.out.println(teile[3]);
+        
+        
+        
+        JPanel panel = new JPanel( new GridLayout(2, 2) );
+        panel.add( new JLabel("<html>" + teile[3] + "</html>") );
+        panel.add( new JLabel("Last Name") );
+        panel.add( new JLabel("First Name") );
+        panel.add( new JLabel("Last Name") );
+
+        JOptionPane pane = new JOptionPane( panel);
+        pane.createDialog(null, "Spielergebnis").setVisible(true);
     }
 
 }
