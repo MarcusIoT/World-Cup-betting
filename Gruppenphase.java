@@ -25,7 +25,7 @@ public class Gruppenphase
     /**
      * 
      */
-    public void ladeGruppen()
+    private void ladeGruppen()
     {
         gruppenHash.put("A", new Gruppe("A"));
         gruppenHash.put("B", new Gruppe("B"));
@@ -130,12 +130,16 @@ public class Gruppenphase
         return punkte; // muss noch fertig
     }
 
-    public void updateSpielergebnis(String land1klein, int tore1, String land2klein, int tore2)
+    public void updateSpielergebnis()
     {
+        String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
+        
+        int tore1 = Integer.valueOf(datenEingabe[1]);
+        int tore2 = Integer.valueOf(datenEingabe[3]);
+        String land1 = schreibeGroß(datenEingabe[0]);
+        String land2 = schreibeGroß(datenEingabe[2]);
+        
         int[] punkte = berechnePunkte(tore1, tore2);
-
-        String land1 = schreibeGroß(land1klein);
-        String land2 = schreibeGroß(land2klein);
 
         String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
         String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
@@ -162,7 +166,7 @@ public class Gruppenphase
     /**
      * 
      */
-    public boolean speichereLand(String land, int tore, int punkte)
+    private boolean speichereLand(String land, int tore, int punkte)
     {
         if(gibGruppeWennLand(land) == null){
             System.out.println("Das Land " + land + " existiert nicht");

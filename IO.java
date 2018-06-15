@@ -67,7 +67,7 @@ public class IO
 
         for (int x = 1; x < teile.length; x++) {
             bw.write(teile[x]);
-            if(x<teile.length){bw.newLine();};
+            if(x<teile.length-1){bw.newLine();};
         }
 
         bw.close();

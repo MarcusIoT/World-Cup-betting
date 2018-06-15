@@ -1,0 +1,27 @@
+
+    public void testJaNeinAbbrechen()
+    {
+        if(ui.jaNeinAbbrechen("Bestätigung", "Wollen sie diese Aktion wirklich durchführen?") == "Ja"){
+            System.out.println("hat geklappt");
+        }
+        else System.out.println("hat auch geklappt");
+    }
+
+    public void testNachricht()
+    {
+        ui.nachricht("Nicht gut", "error 404 es ist ein Fehler aufgetreten");
+    }
+
+    public void testEingabeAufforderung()
+    {
+        System.out.println(ui.eingabeAufforderung("Ihr Name", "Geben Sie bitte ihren Namen ein"));
+    }
+
+    public void testEingabeAufforderungSpielergebnis()
+    {
+        String[] daten = ui.eingabeAufforderungSpielergebnis();
+        for (String element : daten) {
+            System.out.println(element);
+        }
+        System.out.println();
+    }
