@@ -94,12 +94,12 @@ public class UI
     public void erstelleSpielplan(String daten)
     {
         String [] teile = daten.split("!");
-        System.out.println(teile[3]);
+        System.out.println(teile[4]);
         
         
         
         JPanel panel = new JPanel( new GridLayout(2, 2) );
-        panel.add( new JLabel("<html>" + teile[3] + "</html>") );
+        panel.add( new JLabel("<html>" + teile[4] + "</html>") );
         panel.add( new JLabel("Last Name") );
         panel.add( new JLabel("First Name") );
         panel.add( new JLabel("Last Name") );

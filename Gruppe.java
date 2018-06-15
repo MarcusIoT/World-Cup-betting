@@ -28,6 +28,11 @@ public class Gruppe
         länder.put(name, land);
         gruppenGroesse += 1;
     }
+    
+    public int gibGroesse()
+    {
+        return gruppenGroesse;
+    }
 
     public void ladeLand(String name)
     {
@@ -89,7 +94,7 @@ public class Gruppe
         }
         return daten; 
     }
-    
+
     /**
      * ToDo
      */
@@ -98,9 +103,9 @@ public class Gruppe
         String daten = "";
         daten += "!";
         for (String key : spiele.keySet()) {
-            daten += (key + "-" + spiele.get(key) + "/");
+            daten += (key + "-" + spiele.get(key) + "<br>");
         }
-        
+
         return daten;
     }
 
@@ -131,9 +136,26 @@ public class Gruppe
     /**
      *
      */
-    public String gibUpdatedInfoLand(String name, int tore, int punkte)
+    public String[] gibUpdatedInfoLand(String name, int tore, int punkte)
     {
         Land land = länder.get(name);
         return land.gibUpdatedInfo(tore, punkte);
+    }
+
+    /**
+     * 
+     */
+    public String[] gibLänder()
+    {
+        StringBuffer daten = new StringBuffer();
+        for (String key : länder.keySet()) {
+            if (daten.length() != 0) {
+                daten.append("/");
+            }
+            daten.append(key);
+        }
+        String sDaten = daten.toString();
+        String[] teile = sDaten.split("/");
+        return teile;
     }
 }

@@ -45,6 +45,7 @@ public class GruppenphaseTest
     {
         Gruppenphase gruppenp1 = new Gruppenphase();
         gruppenp1.updateSpielergebnis("Argentinien", 2, "Island", 1);
+        gruppenp1.updateSpielergebnis("Island", 2, "Kroatien", 1);
     }
 
      @Test

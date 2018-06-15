@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.lang.*;
 import java.io.*;
+import java.util.ArrayList;
 /**
  * 
  */
@@ -84,11 +85,10 @@ public class Gruppenphase
         return null;
     }
 
-    private String gibDatenSpielergebnis(String land, int tore, int punkte)
+    private String[] gibDatenSpielergebnis(String land, int tore, int punkte)
     {
         Gruppe gruppe = gibGruppeWennLand(land);
-        String daten = gruppe.gibUpdatedInfoLand(land, tore, punkte);
-        return daten;
+        return gruppe.gibUpdatedInfoLand(land, tore, punkte);
     }
 
     /**
@@ -187,7 +187,7 @@ public class Gruppenphase
         String ausgabe = eingabe.substring(0, 1).toUpperCase() + eingabe.substring(1);
         return ausgabe;
     }
-    
+
     /**
      * ToDo
      */
@@ -198,28 +198,52 @@ public class Gruppenphase
         for (String key : gruppenHash.keySet()) {
             Gruppe gruppe = gruppenHash.get(key);
             daten += gruppe.gibSpielergebnisDaten();
-            
+
         }
-        
+
         System.out.println(daten);
         ui.erstelleSpielplan(daten);
     }
-    
+
     /**
      *
      */
     public void löscheAlleEinträge()
     {
         if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
-            
-            for (String key : gruppenHash.keySet()) {
-            Gruppe gruppe = gruppenHash.get(key);
 
-            
-        }
-        
+            for (String key : gruppenHash.keySet()) {
+                String name = key;
+                Gruppe gruppe = gruppenHash.get(key);
+                String[] teile = gruppe.gibLänder();
+                
+                ArrayList where = new ArrayList<String>();
+                where.add(key);
+                where.add(String.valueOf(gruppe.gibGroesse()));
+                
+                for (int i = 0; i < teile.length; i++) {
+                    String[] datenLand = {teile[i], "0", "0"};
+                    where.add(teile[i]);
+                    try{
+                        io.speichereLand(datenLand);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                String[] datenGruppe = new String[where.size()];
+                where.toArray( datenGruppe );
+                
+                try{
+                        io.speichereGruppe(datenGruppe);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                
+                gruppe.ladeGruppeninfo(key);
+            }
         }
     }
 
-    
 }

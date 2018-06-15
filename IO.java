@@ -40,16 +40,32 @@ public class IO
     /**
      * 
      */
-    public  void speichereLand(String daten) throws IOException
+    public  void speichereLand(String[] teile) throws IOException
     {
-        String[] teile = daten.split("/");
-
         String datei = "Länder/" + teile[0] + ".txt";
         FileWriter fw = new FileWriter(datei);
         BufferedWriter bw = new BufferedWriter(fw);
 
 
         for (int x = 0; x < teile.length; x++) {
+            bw.write(teile[x]);
+            if(x<teile.length){bw.newLine();};
+        }
+
+        bw.close();
+    }
+    
+    /**
+     * 
+     */
+    public  void speichereGruppe(String[] teile) throws IOException
+    {
+        String datei = "Gruppen/" + teile[0] + ".txt";
+        FileWriter fw = new FileWriter(datei);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+
+        for (int x = 1; x < teile.length; x++) {
             bw.write(teile[x]);
             if(x<teile.length){bw.newLine();};
         }

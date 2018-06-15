@@ -40,11 +40,12 @@ public class Land
         return name + "/" + String.valueOf(tore) + "/" + String.valueOf(punkte);
     }
 
-    public String gibUpdatedInfo (int tore, int punkte)
+    public String[] gibUpdatedInfo (int tore, int punkte)
     {
         this.tore += tore;
         this.punkte += punkte;
-        return name + "/" + String.valueOf(this.tore) + "/" + String.valueOf(this.punkte);
+        String[] daten = {name, String.valueOf(this.tore), String.valueOf(this.punkte)};
+        return daten;
     }
     
 }
