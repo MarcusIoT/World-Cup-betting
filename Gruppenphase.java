@@ -117,7 +117,7 @@ public class Gruppenphase
             
             if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false
             && gruppe.prüfeExistenzSpielergebnis(land2, land1) == false){
-                System.out.println("Das Ergebnis wurde bereits eingegeben!");
+                ui.nachricht("Fehler", "Das Ergebnis wurde bereits eingegeben");
             }
             
             if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == true){
@@ -126,20 +126,12 @@ public class Gruppenphase
                 updateLand(land2, tore2, punkte[1]);
 
                 String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
-                System.out.println(daten);
                 try{
                     io.speichereGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                String[] print = updateGruppe(gruppeDerLänder, land1, land2, daten);
-                for (String element : print) {
-                    System.out.println(element);
-                }
-                System.out.println();
-
                 gruppe.ladeGruppeninfo(gruppeDerLänder);
 
             }
@@ -149,7 +141,6 @@ public class Gruppenphase
                 updateLand(land2, tore2, punkte[1]);
 
                 String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
-
                 try{
                     io.speichereGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
                 }
@@ -160,7 +151,7 @@ public class Gruppenphase
 
             }
         }
-        else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
+        else{ui.nachricht("Fehler", "Die Länder sind nicht in einer Gruppe");}
     }
 
     /**
@@ -224,7 +215,6 @@ public class Gruppenphase
             daten += "!";
         }
 
-        System.out.println(daten);
         ui.erstelleSpielplan(daten);
     }
 
