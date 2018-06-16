@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.math.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 /**
  *
  */
@@ -8,6 +10,7 @@ public class Gruppe
     private HashMap<String, Land> länder;
     private int gruppenGroesse;
     private IO io;
+    private String nameGruppe;
     private HashMap<String, String> spiele;
     /**
      * Konstructor
@@ -17,7 +20,7 @@ public class Gruppe
         länder = new HashMap<>();
         spiele = new HashMap<>();
         io = new IO();
-
+        this.nameGruppe = name;
         ladeGruppeninfo(name);
     }
 
@@ -31,15 +34,31 @@ public class Gruppe
         gruppenGroesse += 1;
     }
 
-    private void berechnePaarungen()
+    public void berechnePaarungen()
     {
+        ArrayList teile = new ArrayList<String>();
         String[] länder = gibLänder();
         int größeSpiele = binominalkoeffizient(gruppenGroesse, 2); //Todoo
-        String[] spiele;
-        for (int i = 0; i < gruppenGroesse; i++) {
-            for (int x = 1; i < gruppenGroesse; i++) {
+        teile.add(String.valueOf(gruppenGroesse));
 
+        for (int i = 0; i < länder.length; i++) {
+            teile.add(länder[i]);
+        }
+
+        for (int i = 0; i < gruppenGroesse; i++) {
+            for (int x = i+1; x < gruppenGroesse; x++) {
+                teile.add(länder[i] + ":" + länder[x] + "- : ");
             }
+        }
+
+        String[] daten = new String[teile.size()];
+        teile.toArray( daten );
+        
+         try{
+            io.speichereGruppe(nameGruppe, daten);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -87,7 +106,11 @@ public class Gruppe
         for (int i = 1; i <= gruppenGroesse; i++) {
             ladeLand(teile[i]);
         }
-
+        
+        if(teile.length <= gruppenGroesse + 1){
+            berechnePaarungen();
+        }
+        
         ladeSpiele(teile);
     }
 
@@ -137,6 +160,8 @@ public class Gruppe
      */
     public String gibSpielergebnisDaten()
     {
+        ladeGruppeninfo(nameGruppe);
+        
         String daten = "";
         for (String key : spiele.keySet()) {
             daten += (key + "-" + spiele.get(key) + "<br>");
