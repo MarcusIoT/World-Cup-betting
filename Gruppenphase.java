@@ -210,6 +210,7 @@ public class Gruppenphase
 
         for (String key : gruppen.keySet()) {
             Gruppe gruppe = gruppen.get(key);
+            gruppe.ladeGruppeninfo(key);
             daten += "Gruppe " + key + "<br>";
             daten += gruppe.gibSpielergebnisDaten();
             daten += "!";
@@ -233,7 +234,7 @@ public class Gruppenphase
                 ArrayList where = new ArrayList<String>();
                 where.add(key);
                 where.add(String.valueOf(gruppe.gibGroesse()));
-
+                
                 for (int i = 0; i < teile.length; i++) {
                     String[] datenLand = {teile[i], "0", "0"};
                     where.add(teile[i]);
@@ -255,7 +256,7 @@ public class Gruppenphase
                 }
                 
                 gruppe.löscheSpiele();
-                gruppe.ladeGruppeninfo(key);
+               
             }
         }
     }

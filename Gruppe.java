@@ -38,8 +38,17 @@ public class Gruppe
         catch (Exception e) {
             e.printStackTrace();
         }
-        String[] länder = gibLänder();
-        
+        String daten = gibDaten("Gruppen", nameGruppe);
+        daten += name + "/";
+        String[] teile = daten.split("/");
+        teile[0] = String.valueOf(gruppenGroesse);
+        try{
+            io.speichereGruppe(nameGruppe, teile);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        ladeGruppeninfo(nameGruppe);
     }
 
     public void berechnePaarungen()
