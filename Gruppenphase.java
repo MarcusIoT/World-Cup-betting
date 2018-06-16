@@ -253,7 +253,8 @@ public class Gruppenphase
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                
+                gruppe.löscheSpiele();
                 gruppe.ladeGruppeninfo(key);
             }
         }

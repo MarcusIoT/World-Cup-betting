@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.math.*;
 /**
  *
  */
@@ -30,6 +31,34 @@ public class Gruppe
         gruppenGroesse += 1;
     }
 
+    private void berechnePaarungen()
+    {
+        String[] länder = gibLänder();
+        int größeSpiele = binominalkoeffizient(gruppenGroesse, 2); //Todoo
+        String[] spiele;
+        for (int i = 0; i < gruppenGroesse; i++) {
+            for (int x = 1; i < gruppenGroesse; i++) {
+
+            }
+        }
+    }
+
+    /**
+     * 
+     */
+    public int binominalkoeffizient(int n, int k)
+    {        
+        if (k > n) return 0;
+        else {
+            int a = 1;
+            for (int i = n-k+1; i <= n; i++) a *= i;
+            int b = 1;
+            for (int i = 2; i <= k; i++) b *= i;
+            return a / b;
+        }
+    }
+    
+
     public int gibGroesse()
     {
         return gruppenGroesse;
@@ -59,6 +88,11 @@ public class Gruppe
             ladeLand(teile[i]);
         }
 
+        ladeSpiele(teile);
+    }
+
+    public void ladeSpiele(String[] teile)
+    {
         if(teile.length >= gruppenGroesse+2){
             for (int i = gruppenGroesse+1; i < teile.length; i++) {
                 String[] daten = teile[i].split("-");
@@ -165,5 +199,13 @@ public class Gruppe
         String sDaten = daten.toString();
         String[] teile = sDaten.split("/");
         return teile;
+    }
+
+    /**
+     * 
+     */
+    public void löscheSpiele()
+    {
+        spiele.clear();
     }
 }
