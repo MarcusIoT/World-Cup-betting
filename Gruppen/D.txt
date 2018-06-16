@@ -3,4 +3,9 @@ Kroatien
 Argentinien
 Nigeria
 Island
-Argentinien:Island-2:5
+Kroatien:Argentinien- : 
+Kroatien:Nigeria- : 
+Kroatien:Island- : 
+Argentinien:Nigeria- : 
+Argentinien:Island- : 
+Nigeria:Island- : 

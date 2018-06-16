@@ -3,3 +3,9 @@ Daenemark
 Australien
 Frankreich
 Peru
+Daenemark:Australien- : 
+Daenemark:Frankreich- : 
+Daenemark:Peru- : 
+Australien:Frankreich- : 
+Australien:Peru- : 
+Frankreich:Peru- : 

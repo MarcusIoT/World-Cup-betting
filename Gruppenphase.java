@@ -111,17 +111,47 @@ public class Gruppenphase
 
         int[] punkte = berechnePunkte(tore1, tore2);
 
-        String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
         String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
-
         if(gruppeDerLänder != null){
             Gruppe gruppe = gruppen.get(gruppeDerLänder);
-            if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
+            
+            if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false
+            && gruppe.prüfeExistenzSpielergebnis(land2, land1) == false){
+                System.out.println("Das Ergebnis wurde bereits eingegeben!");
+            }
+            
+            if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == true){
 
-                speichereLand(land1, tore1, punkte[0]); 
-                speichereLand(land2, tore2, punkte[1]);
+                updateLand(land1, tore1, punkte[0]); 
+                updateLand(land2, tore2, punkte[1]);
+
+                String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
+                System.out.println(daten);
                 try{
-                    io.appendGruppe(gruppeDerLänder, daten);
+                    io.speichereGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                String[] print = updateGruppe(gruppeDerLänder, land1, land2, daten);
+                for (String element : print) {
+                    System.out.println(element);
+                }
+                System.out.println();
+
+                gruppe.ladeGruppeninfo(gruppeDerLänder);
+
+            }
+            if(gruppe.prüfeExistenzSpielergebnis(land2, land1) == true){
+
+                updateLand(land1, tore1, punkte[0]); 
+                updateLand(land2, tore2, punkte[1]);
+
+                String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
+
+                try{
+                    io.speichereGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
                 }
                 catch (Exception e) {
                     e.printStackTrace();
@@ -129,7 +159,6 @@ public class Gruppenphase
                 gruppe.ladeGruppeninfo(gruppeDerLänder);
 
             }
-            else{System.out.println("Das Ergebnis wurde bereits eingegeben!");}
         }
         else{System.out.println("Die Länder sind nicht in einer Gruppe!");}
     }
@@ -137,7 +166,7 @@ public class Gruppenphase
     /**
      * 
      */
-    private void speichereLand(String land, int tore, int punkte)
+    private void updateLand(String land, int tore, int punkte)
     {
 
         try{
@@ -146,6 +175,30 @@ public class Gruppenphase
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 
+     */
+    private String[] updateGruppe(String gruppeDerLänder, String land1, String land2, String daten)
+    {        
+        String gruppenDatenAlt = "";
+        try{
+            gruppenDatenAlt += io.ladeDatei("Gruppen", gruppeDerLänder);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String[] teileGruppenDatenAlt = gruppenDatenAlt.split("/");
+        for (int i = 0; i < teileGruppenDatenAlt.length; i++) {
+            String check = teileGruppenDatenAlt[i];
+            if(check.contains(land1 + ":" + land2 + "-" + " : ") == true){
+                teileGruppenDatenAlt[i] = daten;
+            }
+        }
+
+        return teileGruppenDatenAlt;
     }
 
     /**
@@ -205,7 +258,7 @@ public class Gruppenphase
                 where.toArray( datenGruppe );
 
                 try{
-                    io.speichereGruppe(datenGruppe);
+                    io.resetGruppe(datenGruppe);
                 }
                 catch (Exception e) {
                     e.printStackTrace();

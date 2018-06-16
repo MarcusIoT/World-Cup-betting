@@ -3,4 +3,9 @@ Schweiz
 Brasilien
 Serbien
 Costa Rica
-Brasilien:Schweiz-2:3
+Schweiz:Brasilien- : 
+Schweiz:Serbien- : 
+Schweiz:Costa Rica- : 
+Brasilien:Serbien- : 
+Brasilien:Costa Rica- : 
+Serbien:Costa Rica- : 

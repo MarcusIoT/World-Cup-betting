@@ -2,4 +2,10 @@
 Aegypten
 Russland
 Uruguay
-Saudi-Arabien
+SaudiArabien
+Aegypten:Russland- : 
+Aegypten:Uruguay- : 
+Aegypten:SaudiArabien- : 
+Russland:Uruguay-4:2
+Russland:SaudiArabien- : 
+Uruguay:SaudiArabien- : 

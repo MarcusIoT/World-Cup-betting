@@ -16,6 +16,7 @@ public class Gruppe
         länder = new HashMap<>();
         spiele = new HashMap<>();
         io = new IO();
+
         ladeGruppeninfo(name);
     }
 
@@ -28,7 +29,7 @@ public class Gruppe
         länder.put(name, land);
         gruppenGroesse += 1;
     }
-    
+
     public int gibGroesse()
     {
         return gruppenGroesse;
@@ -61,7 +62,9 @@ public class Gruppe
         if(teile.length >= gruppenGroesse+2){
             for (int i = gruppenGroesse+1; i < teile.length; i++) {
                 String[] daten = teile[i].split("-");
+
                 spiele.put(daten[0], daten[1]);
+
             }
         }
     }
@@ -104,11 +107,11 @@ public class Gruppe
         for (String key : spiele.keySet()) {
             daten += (key + "-" + spiele.get(key) + "<br>");
         }
-        
+
         if(daten.isEmpty() == true){
             daten += "-------------";
         }
-        
+
         return daten;
     }
 
@@ -118,11 +121,13 @@ public class Gruppe
     public boolean prüfeExistenzSpielergebnis (String land1, String land2)
     {
         String spiel = land1 + ":" + land2;
-        String spielRück = land2 + ":" + land1;
-        if(spiele.containsKey(spiel) == false && spiele.containsKey(spielRück) == false){
-            return false;
+        String check = " : ";
+
+        if(check.equals(spiele.get(spiel)) == true){
+            return true;
         }
-        else return true;
+        else return false;
+
     }
 
     /**

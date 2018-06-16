@@ -58,7 +58,7 @@ public class IO
     /**
      * 
      */
-    public  void speichereGruppe(String[] teile) throws IOException
+    public  void resetGruppe(String[] teile) throws IOException
     {
         String datei = "Gruppen/" + teile[0] + ".txt";
         FileWriter fw = new FileWriter(datei);
@@ -66,6 +66,24 @@ public class IO
 
 
         for (int x = 1; x < teile.length; x++) {
+            bw.write(teile[x]);
+            if(x<teile.length-1){bw.newLine();};
+        }
+
+        bw.close();
+    }
+    
+    /**
+     * 
+     */
+    public  void speichereGruppe(String name, String[] teile) throws IOException
+    {
+        String datei = "Gruppen/" + name + ".txt";
+        FileWriter fw = new FileWriter(datei);
+        BufferedWriter bw = new BufferedWriter(fw);
+
+
+        for (int x = 0; x < teile.length; x++) {
             bw.write(teile[x]);
             if(x<teile.length-1){bw.newLine();};
         }
