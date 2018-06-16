@@ -16,24 +16,6 @@ public class UI
     {
 
     }
-
-    /**
-     * 
-     */
-    public String jaNeinAbbrechen(String kopfzeile, String nachricht)
-    {
-        int eingabe = JOptionPane.showConfirmDialog(null,
-                nachricht,
-                kopfzeile,
-                JOptionPane.YES_NO_CANCEL_OPTION);
-        if(eingabe == 0){
-            return "Ja";
-        }
-        if(eingabe == 1){
-            return "Nein";
-        }
-        else return "Abbrechen";
-    }
     
     public boolean okAbbrechen(String kopfzeile, String nachricht)
     {
@@ -53,17 +35,6 @@ public class UI
             nachricht,
             kopfzeile,                        
             JOptionPane.WARNING_MESSAGE);
-    }
-
-    /**
-     * 
-     */
-    public String eingabeAufforderung(String kopfzeile, String nachricht)
-    {
-        String eingabe = JOptionPane.showInputDialog(null,"Geben Sie Ihren Namen ein",
-                "Eine Eingabeaufforderung",
-                JOptionPane.PLAIN_MESSAGE);
-        return eingabe;
     }
 
     /**
@@ -94,15 +65,19 @@ public class UI
     public void erstelleSpielplan(String daten)
     {
         String [] teile = daten.split("!");
-        System.out.println(teile[4]);
         
         
         
-        JPanel panel = new JPanel( new GridLayout(2, 2) );
+        JPanel panel = new JPanel( new GridLayout(1, 8) );
+        panel.add( new JLabel("<html>" + teile[0] + "</html>") );
+        panel.add( new JLabel("<html>" + teile[1] + "</html>") );
+        panel.add( new JLabel("<html>" + teile[2] + "</html>") );
+        panel.add( new JLabel("<html>" + teile[3] + "</html>") );
         panel.add( new JLabel("<html>" + teile[4] + "</html>") );
-        panel.add( new JLabel("Last Name") );
-        panel.add( new JLabel("First Name") );
-        panel.add( new JLabel("Last Name") );
+        panel.add( new JLabel("<html>" + teile[5] + "</html>") );
+        panel.add( new JLabel("<html>" + teile[6] + "</html>") );
+        panel.add( new JLabel("<html>" + teile[7] + "</html>") );
+        
 
         JOptionPane pane = new JOptionPane( panel);
         pane.createDialog(null, "Spielergebnis").setVisible(true);

@@ -101,11 +101,14 @@ public class Gruppe
     public String gibSpielergebnisDaten()
     {
         String daten = "";
-        daten += "!";
         for (String key : spiele.keySet()) {
             daten += (key + "-" + spiele.get(key) + "<br>");
         }
-
+        
+        if(daten.isEmpty() == true){
+            daten += "-------------";
+        }
+        
         return daten;
     }
 

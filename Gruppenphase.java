@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Gruppenphase
 {
-    private HashMap<String, Gruppe> gruppenHash; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
+    private HashMap<String, Gruppe> gruppen; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
     private IO io;
     private UI ui;
 
@@ -16,7 +16,7 @@ public class Gruppenphase
      */
     public Gruppenphase()
     {
-        gruppenHash = new HashMap<>();
+        gruppen = new HashMap<>();
         ladeGruppen();
         io = new IO();
         ui = new UI();
@@ -27,44 +27,14 @@ public class Gruppenphase
      */
     private void ladeGruppen()
     {
-        gruppenHash.put("A", new Gruppe("A"));
-        gruppenHash.put("B", new Gruppe("B"));
-        gruppenHash.put("C", new Gruppe("C"));
-        gruppenHash.put("D", new Gruppe("D"));
-        gruppenHash.put("E", new Gruppe("E"));
-        gruppenHash.put("F", new Gruppe("F"));
-        gruppenHash.put("G", new Gruppe("G"));
-        gruppenHash.put("H", new Gruppe("H"));
-    }
-
-    /**
-     * 
-     */
-    public void testJaNeinAbbrechen()
-    {
-        if(ui.jaNeinAbbrechen("Bestätigung", "Wollen sie diese Aktion wirklich durchführen?") == "Ja"){
-            System.out.println("hat geklappt");
-        }
-        else System.out.println("hat auch geklappt");
-    }
-
-    public void testNachricht()
-    {
-        ui.nachricht("Nicht gut", "error 404 es ist ein Fehler aufgetreten");
-    }
-
-    public void testEingabeAufforderung()
-    {
-        System.out.println(ui.eingabeAufforderung("Ihr Name", "Geben Sie bitte ihren Namen ein"));
-    }
-
-    public void testEingabeAufforderungSpielergebnis()
-    {
-        String[] daten = ui.eingabeAufforderungSpielergebnis();
-        for (String element : daten) {
-            System.out.println(element);
-        }
-        System.out.println();
+        gruppen.put("A", new Gruppe("A"));
+        gruppen.put("B", new Gruppe("B"));
+        gruppen.put("C", new Gruppe("C"));
+        gruppen.put("D", new Gruppe("D"));
+        gruppen.put("E", new Gruppe("E"));
+        gruppen.put("F", new Gruppe("F"));
+        gruppen.put("G", new Gruppe("G"));
+        gruppen.put("H", new Gruppe("H"));
     }
 
     /**
@@ -74,8 +44,8 @@ public class Gruppenphase
     {
         String daten = "";
 
-        for (String key : gruppenHash.keySet()) {
-            Gruppe gruppe = gruppenHash.get(key);
+        for (String key : gruppen.keySet()) {
+            Gruppe gruppe = gruppen.get(key);
 
             if(gruppe.prüfeLand(land) == true){
                 return gruppe;
@@ -99,8 +69,8 @@ public class Gruppenphase
         String gruppe1 = "";
         String gruppe2 = "";
 
-        for (String key : gruppenHash.keySet()) {
-            Gruppe gruppe = gruppenHash.get(key);
+        for (String key : gruppen.keySet()) {
+            Gruppe gruppe = gruppen.get(key);
 
             if(gruppe.prüfeLand(land1) == true){
                 gruppe1 = key;
@@ -133,30 +103,31 @@ public class Gruppenphase
     public void updateSpielergebnis()
     {
         String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
-        
+
         int tore1 = Integer.valueOf(datenEingabe[1]);
         int tore2 = Integer.valueOf(datenEingabe[3]);
         String land1 = schreibeGroß(datenEingabe[0]);
         String land2 = schreibeGroß(datenEingabe[2]);
-        
+
         int[] punkte = berechnePunkte(tore1, tore2);
 
         String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
         String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
 
         if(gruppeDerLänder != null){
-            Gruppe gruppe = gruppenHash.get(gruppeDerLänder);
+            Gruppe gruppe = gruppen.get(gruppeDerLänder);
             if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
 
-                if(speichereLand(land1, tore1, punkte[0]) && speichereLand(land2, tore2, punkte[1])== true){
-                    try{
-                        io.appendGruppe(gruppeDerLänder, daten);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    gruppe.ladeGruppeninfo(gruppeDerLänder);
+                speichereLand(land1, tore1, punkte[0]); 
+                speichereLand(land2, tore2, punkte[1]);
+                try{
+                    io.appendGruppe(gruppeDerLänder, daten);
                 }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                gruppe.ladeGruppeninfo(gruppeDerLänder);
+
             }
             else{System.out.println("Das Ergebnis wurde bereits eingegeben!");}
         }
@@ -166,20 +137,14 @@ public class Gruppenphase
     /**
      * 
      */
-    private boolean speichereLand(String land, int tore, int punkte)
+    private void speichereLand(String land, int tore, int punkte)
     {
-        if(gibGruppeWennLand(land) == null){
-            System.out.println("Das Land " + land + " existiert nicht");
-            return false;
+
+        try{
+            io.speichereLand(gibDatenSpielergebnis(land, tore, punkte));
         }
-        else{
-            try{
-                io.speichereLand(gibDatenSpielergebnis(land, tore, punkte));
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return true;
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -199,10 +164,11 @@ public class Gruppenphase
     {
         String daten = "";
 
-        for (String key : gruppenHash.keySet()) {
-            Gruppe gruppe = gruppenHash.get(key);
+        for (String key : gruppen.keySet()) {
+            Gruppe gruppe = gruppen.get(key);
+            daten += "Gruppe " + key + "<br>";
             daten += gruppe.gibSpielergebnisDaten();
-
+            daten += "!";
         }
 
         System.out.println(daten);
@@ -216,15 +182,15 @@ public class Gruppenphase
     {
         if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
 
-            for (String key : gruppenHash.keySet()) {
+            for (String key : gruppen.keySet()) {
                 String name = key;
-                Gruppe gruppe = gruppenHash.get(key);
+                Gruppe gruppe = gruppen.get(key);
                 String[] teile = gruppe.gibLänder();
-                
+
                 ArrayList where = new ArrayList<String>();
                 where.add(key);
                 where.add(String.valueOf(gruppe.gibGroesse()));
-                
+
                 for (int i = 0; i < teile.length; i++) {
                     String[] datenLand = {teile[i], "0", "0"};
                     where.add(teile[i]);
@@ -237,14 +203,14 @@ public class Gruppenphase
                 }
                 String[] datenGruppe = new String[where.size()];
                 where.toArray( datenGruppe );
-                
+
                 try{
-                        io.speichereGruppe(datenGruppe);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                
+                    io.speichereGruppe(datenGruppe);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 gruppe.ladeGruppeninfo(key);
             }
         }
