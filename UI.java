@@ -16,7 +16,7 @@ public class UI
     {
 
     }
-    
+
     public boolean okAbbrechen(String kopfzeile, String nachricht)
     {
         int eingabe = JOptionPane.showConfirmDialog(null,
@@ -65,22 +65,36 @@ public class UI
     public void erstelleSpielplan(String daten)
     {
         String [] teile = daten.split("!");
+
         
+        JPanel panel = new JPanel( new GridLayout(1, teile.length) );
+        for (int i = 0; i < teile.length; i++) {
+            panel.add( new JLabel("<html>" + teile[i] + "</html>") );
+        }
         
-        
-        JPanel panel = new JPanel( new GridLayout(1, 8) );
-        panel.add( new JLabel("<html>" + teile[0] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[1] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[2] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[3] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[4] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[5] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[6] + "</html>") );
-        panel.add( new JLabel("<html>" + teile[7] + "</html>") );
         
 
         JOptionPane pane = new JOptionPane( panel);
         pane.createDialog(null, "Spielergebnis").setVisible(true);
     }
 
+    /**
+     * 
+     */
+    public String[] eingabeAufforderungNeuesLand()
+    {
+        JTextField gruppe = new JTextField();
+        JTextField name = new JTextField();
+
+        Object[] message = {"Wenn sie ein neues Land zu einer Gruppe hinzu fügen werden alle Daten resetted.", " ", "Gruppe in die das Land soll", gruppe, 
+                "Name des Landes", name};
+
+        JOptionPane pane = new JOptionPane( message, 
+                JOptionPane.PLAIN_MESSAGE, 
+                JOptionPane.OK_CANCEL_OPTION);
+        pane.createDialog(null, "Neues Land").setVisible(true);
+
+        String[] daten = {gruppe.getText(), name.getText()};
+        return daten;
+    }
 }

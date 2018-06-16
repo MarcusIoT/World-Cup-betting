@@ -35,9 +35,10 @@ public class Land
     /**
      *
      */
-    public String gibInfo ()
+    public String[] gibInfo ()
     {
-        return name + "/" + String.valueOf(tore) + "/" + String.valueOf(punkte);
+        String[] daten = {name, String.valueOf(tore), String.valueOf(punkte)};
+        return daten;
     }
 
     public String[] gibUpdatedInfo (int tore, int punkte)

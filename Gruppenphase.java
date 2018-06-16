@@ -259,5 +259,17 @@ public class Gruppenphase
             }
         }
     }
+    
+    /**
+     * 
+     */
+    public void fügeLand()
+    {
+        String[] daten = ui.eingabeAufforderungNeuesLand();
+        löscheAlleEinträge();
+        Gruppe gruppe = gruppen.get(daten[0]);
+        gruppe.erstelleLand(daten[1]);
+    }
+
 
 }

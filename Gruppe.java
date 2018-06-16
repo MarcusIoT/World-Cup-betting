@@ -32,6 +32,14 @@ public class Gruppe
         Land land = new Land(name, 0, 0);
         länder.put(name, land);
         gruppenGroesse += 1;
+        try{
+            io.speichereLand(gibInfoLand(name));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] länder = gibLänder();
+        
     }
 
     public void berechnePaarungen()
@@ -207,6 +215,15 @@ public class Gruppe
     {
         Land land = länder.get(name);
         return land.gibUpdatedInfo(tore, punkte);
+    }
+    
+     /**
+     *
+     */
+    public String[] gibInfoLand(String name)
+    {
+        Land land = länder.get(name);
+        return land.gibInfo();
     }
 
     /**
