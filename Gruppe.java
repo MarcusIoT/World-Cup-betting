@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 /**
  *
+ *
+ * @author Marcus Schoch
+ * @version 17.06.2018
  */
 public class Gruppe
 {
@@ -70,8 +73,8 @@ public class Gruppe
 
         String[] daten = new String[teile.size()];
         teile.toArray( daten );
-        
-         try{
+
+        try{
             io.speichereGruppe(nameGruppe, daten);
         }
         catch (Exception e) {
@@ -93,14 +96,13 @@ public class Gruppe
             return a / b;
         }
     }
-    
 
     public int gibGroesse()
     {
         return gruppenGroesse;
     }
-    
-     public String gibName()
+
+    public String gibName()
     {
         return nameGruppe;
     }
@@ -128,11 +130,11 @@ public class Gruppe
         for (int i = 1; i <= gruppenGroesse; i++) {
             ladeLand(teile[i]);
         }
-        
+
         if(teile.length <= gruppenGroesse + 1){
             berechnePaarungen();
         }
-        
+
         ladeSpiele(teile);
     }
 
@@ -183,7 +185,7 @@ public class Gruppe
     public String gibSpielergebnisDaten()
     {
         ladeGruppeninfo(nameGruppe);
-        
+
         String daten = "";
         for (String key : spiele.keySet()) {
             daten += (key + "-" + spiele.get(key) + "<br>");
@@ -230,8 +232,8 @@ public class Gruppe
         Land land = länder.get(name);
         return land.gibUpdatedInfo(tore, punkte);
     }
-    
-     /**
+
+    /**
      *
      */
     public String[] gibInfoLand(String name)
@@ -264,7 +266,7 @@ public class Gruppe
     {
         spiele.clear();
     }
-    
+
     /**
      * 
      */

@@ -4,8 +4,8 @@ import java.nio.file.*;
 /**
  * Write a description of class Auslesen here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Marcus Schoch
+ * @version 17.06.2018
  */
 public class IO
 {

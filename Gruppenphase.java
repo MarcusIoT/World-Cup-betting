@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 /**
  * 
+ * 
+ * @author Marcus Schoch
+ * @version 17.06.2018
  */
 public class Gruppenphase
 {
