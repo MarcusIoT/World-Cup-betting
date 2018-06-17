@@ -99,6 +99,11 @@ public class Gruppe
     {
         return gruppenGroesse;
     }
+    
+     public String gibName()
+    {
+        return nameGruppe;
+    }
 
     public void ladeLand(String name)
     {
@@ -146,7 +151,7 @@ public class Gruppe
     /**
      * 
      */
-    private String[] gibDatenTeile(String ordner, String datei)
+    public String[] gibDatenTeile(String ordner, String datei)
     {
         String daten = "";
         try{

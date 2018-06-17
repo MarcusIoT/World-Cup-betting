@@ -94,9 +94,10 @@ public class UI
                 JOptionPane.PLAIN_MESSAGE, 
                JOptionPane.OK_CANCEL_OPTION);
         pane.createDialog(null, "Neues Land").setVisible(true);
-        pane.getValue();
+        int value = ((Integer)pane.getValue()).intValue();
         String[] daten = {gruppe.getText(), name.getText()};
-        if(JOptionPane.CANCEL_OPTION == 2){return null;}
+
+        if(value == JOptionPane.CANCEL_OPTION){return null;}
         else {return daten;}
     }
     
@@ -111,9 +112,10 @@ public class UI
         JOptionPane pane = new JOptionPane( message, 
                 JOptionPane.PLAIN_MESSAGE, 
                 JOptionPane.OK_CANCEL_OPTION);
-        pane.createDialog(null, "Neues Land").setVisible(true);
-        pane.getValue();
-        if(JOptionPane.CANCEL_OPTION == 2){return null;}
-        else {return name.getText();}
+        pane.createDialog(null, "Land Entfernen").setVisible(true);
+         int value = ((Integer)pane.getValue()).intValue();
+        String daten = name.getText();
+        if(value == JOptionPane.CANCEL_OPTION){return null;}
+        else {return daten;}
     }
 }

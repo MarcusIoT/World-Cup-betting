@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.lang.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 /**
  * 
  */
@@ -273,9 +274,25 @@ public class Gruppenphase
      */
     public void entferneLand()
     {
-        String daten = ui.eingabeAufforderungEntferneLand();
-        if(daten != null){
-            
+        String nameLand = ui.eingabeAufforderungEntferneLand();
+        if(nameLand != null){
+            if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
+                entferneAlleEinträge();
+                Gruppe gruppe = gibGruppeWennLand(nameLand);
+                String name = gruppe.gibName();
+                String[] teile = gruppe.gibDatenTeile("Gruppen", name);
+                int gruppenGroesse = Integer.valueOf(teile[0]);
+                teile[0] = String.valueOf(gruppenGroesse - 1);
+
+                ArrayList daten = new ArrayList<String>();
+                for (int i = 0; i < teile.length; i++) {
+                    daten.add(teile[i]);
+                }
+                daten.remove(nameLand);
+                String[] datenGruppe = new String[daten.size()];
+                daten.toArray( datenGruppe );
+                System.out.println(Arrays.toString(datenGruppe));
+            }
         }
     }
 
