@@ -169,6 +169,16 @@ public class Gruppenphase
         }
     }
 
+    private void updateGruppe(String name, String[] teile)
+    {
+        try{
+            io.speichereGruppe(name, teile);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 
      */
@@ -291,7 +301,15 @@ public class Gruppenphase
                 daten.remove(nameLand);
                 String[] datenGruppe = new String[daten.size()];
                 daten.toArray( datenGruppe );
-                System.out.println(Arrays.toString(datenGruppe));
+                updateGruppe(name, datenGruppe);
+                gruppe.löscheLänder();
+                gruppe.ladeGruppeninfo(name);
+                try{
+                    io.löscheDatei("Länder", name);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

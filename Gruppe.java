@@ -264,4 +264,12 @@ public class Gruppe
     {
         spiele.clear();
     }
+    
+    /**
+     * 
+     */
+    public void löscheLänder()
+    {
+        länder.clear();
+    }
 }

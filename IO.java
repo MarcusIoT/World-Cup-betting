@@ -1,5 +1,6 @@
 import java.io.*;
 import java.lang.*;
+import java.nio.file.*;
 /**
  * Write a description of class Auslesen here.
  *
@@ -105,5 +106,14 @@ public class IO
 
         
         bw.close();
+    }
+    
+    /**
+     * 
+     */
+    public  void löscheDatei(String ordner, String name) throws IOException
+    {
+        String datei = ordner + "/" + name + ".txt";
+        Files.deleteIfExists(Paths.get(datei));
     }
 }

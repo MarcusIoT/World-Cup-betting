@@ -1,13 +1,8 @@
-5
-Zypern
+4
 Kroatien
 Argentinien
 Nigeria
 Island
-Zypern:Kroatien- : 
-Zypern:Argentinien- : 
-Zypern:Nigeria- : 
-Zypern:Island- : 
 Kroatien:Argentinien- : 
 Kroatien:Nigeria- : 
 Kroatien:Island- : 
