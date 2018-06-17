@@ -69,7 +69,9 @@ public class UI
         
         JPanel panel = new JPanel( new GridLayout(1, teile.length) );
         for (int i = 0; i < teile.length; i++) {
-            panel.add( new JLabel("<html>" + teile[i] + "</html>") );
+            JLabel zwischen = new JLabel("<html>" + teile[i] + "</html>");
+            zwischen.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+            panel.add(zwischen);
         }
         
         
