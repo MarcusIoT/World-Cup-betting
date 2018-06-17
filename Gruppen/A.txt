@@ -1,11 +1,16 @@
-4
+5
 Aegypten
 Russland
 Uruguay
 SaudiArabien
+Sina
 Aegypten:Russland- : 
 Aegypten:Uruguay- : 
 Aegypten:SaudiArabien- : 
+Aegypten:Sina- : 
 Russland:Uruguay- : 
 Russland:SaudiArabien- : 
+Russland:Sina- : 
 Uruguay:SaudiArabien- : 
+Uruguay:Sina- : 
+SaudiArabien:Sina- : 

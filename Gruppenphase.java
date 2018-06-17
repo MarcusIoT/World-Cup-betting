@@ -114,12 +114,12 @@ public class Gruppenphase
         String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
         if(gruppeDerLänder != null){
             Gruppe gruppe = gruppen.get(gruppeDerLänder);
-            
+
             if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false
             && gruppe.prüfeExistenzSpielergebnis(land2, land1) == false){
                 ui.nachricht("Fehler", "Das Ergebnis wurde bereits eingegeben");
             }
-            
+
             if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == true){
 
                 updateLand(land1, tore1, punkte[0]); 
@@ -225,52 +225,74 @@ public class Gruppenphase
     public void löscheAlleEinträge()
     {
         if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
+            entferneAlleEinträge();
+        }
+    }
 
-            for (String key : gruppen.keySet()) {
-                String name = key;
-                Gruppe gruppe = gruppen.get(key);
-                String[] teile = gruppe.gibLänder();
+    /**
+     * 
+     */
+    private void entferneAlleEinträge()
+    {
+        for (String key : gruppen.keySet()) {
+            String name = key;
+            Gruppe gruppe = gruppen.get(key);
+            String[] teile = gruppe.gibLänder();
 
-                ArrayList where = new ArrayList<String>();
-                where.add(key);
-                where.add(String.valueOf(gruppe.gibGroesse()));
-                
-                for (int i = 0; i < teile.length; i++) {
-                    String[] datenLand = {teile[i], "0", "0"};
-                    where.add(teile[i]);
-                    try{
-                        io.speichereLand(datenLand);
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                String[] datenGruppe = new String[where.size()];
-                where.toArray( datenGruppe );
+            ArrayList where = new ArrayList<String>();
+            where.add(key);
+            where.add(String.valueOf(gruppe.gibGroesse()));
 
+            for (int i = 0; i < teile.length; i++) {
+                String[] datenLand = {teile[i], "0", "0"};
+                where.add(teile[i]);
                 try{
-                    io.resetGruppe(datenGruppe);
+                    io.speichereLand(datenLand);
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-                
-                gruppe.löscheSpiele();
-               
             }
+            String[] datenGruppe = new String[where.size()];
+            where.toArray( datenGruppe );
+
+            try{
+                io.resetGruppe(datenGruppe);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            gruppe.löscheSpiele();
+
         }
     }
-    
+
     /**
      * 
      */
-    public void fügeLand()
+    public void entferneLand()
     {
-        String[] daten = ui.eingabeAufforderungNeuesLand();
-        löscheAlleEinträge();
-        Gruppe gruppe = gruppen.get(daten[0]);
-        gruppe.erstelleLand(daten[1]);
+        String daten = ui.eingabeAufforderungEntferneLand();
+        if(daten != null){
+            
+        }
     }
 
+    /**
+     * 
+     */
+    public void neuesLand()
+    {
+        String[] daten = ui.eingabeAufforderungNeuesLand();
+        if(daten != null){
+            if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
+                entferneAlleEinträge();
+                Gruppe gruppe = gruppen.get(daten[0]);
+                gruppe.erstelleLand(daten[1]);
+            }
+        }
+
+    }
 
 }

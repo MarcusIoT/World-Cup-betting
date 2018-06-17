@@ -88,13 +88,32 @@ public class UI
 
         Object[] message = {"Wenn sie ein neues Land zu einer Gruppe hinzu fügen werden alle Daten resetted.", " ", "Gruppe in die das Land soll", gruppe, 
                 "Name des Landes", name};
+            
+
+        JOptionPane pane = new JOptionPane( message, 
+                JOptionPane.PLAIN_MESSAGE, 
+               JOptionPane.OK_CANCEL_OPTION);
+        pane.createDialog(null, "Neues Land").setVisible(true);
+        pane.getValue();
+        String[] daten = {gruppe.getText(), name.getText()};
+        if(JOptionPane.CANCEL_OPTION == 2){return null;}
+        else {return daten;}
+    }
+    
+     public String eingabeAufforderungEntferneLand()
+    {
+        JTextField gruppe = new JTextField();
+        JTextField name = new JTextField();
+
+        Object[] message = {"Wenn sie ein Land aus einer Gruppe entfernen werden alle Daten resetted.", " ", 
+                "Name des Landes", name};
 
         JOptionPane pane = new JOptionPane( message, 
                 JOptionPane.PLAIN_MESSAGE, 
                 JOptionPane.OK_CANCEL_OPTION);
         pane.createDialog(null, "Neues Land").setVisible(true);
-
-        String[] daten = {gruppe.getText(), name.getText()};
-        return daten;
+        pane.getValue();
+        if(JOptionPane.CANCEL_OPTION == 2){return null;}
+        else {return name.getText();}
     }
 }
