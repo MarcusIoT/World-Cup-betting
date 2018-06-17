@@ -20,10 +20,10 @@ public class Gruppenphase
      */
     public Gruppenphase()
     {
-        gruppen = new HashMap<>();
-        ladeGruppen();
+        gruppen = new HashMap<>();             
         io = new IO();
         ui = new UI();
+        ladeGruppen();
     }
 
     /**
@@ -31,14 +31,18 @@ public class Gruppenphase
      */
     private void ladeGruppen()
     {
-        gruppen.put("A", new Gruppe("A"));
-        gruppen.put("B", new Gruppe("B"));
-        gruppen.put("C", new Gruppe("C"));
-        gruppen.put("D", new Gruppe("D"));
-        gruppen.put("E", new Gruppe("E"));
-        gruppen.put("F", new Gruppe("F"));
-        gruppen.put("G", new Gruppe("G"));
-        gruppen.put("H", new Gruppe("H"));
+        String daten = "";
+        String[] teile;
+        try{
+            daten = io.ladeDatei("Gruppen", "Gruppen");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        teile = daten.split("/");
+        for (int i = 0; i < teile.length; i++) {
+            gruppen.put(teile[i], new Gruppe(teile[i]));
+        }
     }
 
     /**

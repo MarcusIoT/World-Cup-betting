@@ -6,6 +6,6 @@ Schweden
 Mexiko:Suedkorea- : 
 Mexiko:Deutschland- : 
 Mexiko:Schweden- : 
-Suedkorea:Deutschland-2:1
+Suedkorea:Deutschland- : 
 Suedkorea:Schweden- : 
 Deutschland:Schweden- : 
