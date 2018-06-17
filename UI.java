@@ -137,4 +137,12 @@ public class UI
         }
         else return null;
     }
+    
+    /**
+     * 
+     */
+    public String[] eingabeAufforderungNeueGruppe()
+    {
+        
+    }
 }

@@ -336,5 +336,18 @@ public class Gruppenphase
         }
 
     }
+    
+    /**
+     * 
+     */
+    public void neueGruppe()
+    {
+        String[] daten = ui.eingabeAufforderungNeueGruppe();
+        if(daten != null){
+            if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
+                entferneAlleEinträge();
+            }
+        }
+    }
 
 }
