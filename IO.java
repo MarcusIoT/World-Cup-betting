@@ -95,9 +95,9 @@ public class IO
     /**
      * 
      */
-    public  void appendGruppe(String dateiName, String daten) throws IOException
+    public  void appendGruppe(String daten) throws IOException
     {
-        String datei = "Gruppen/" + dateiName + ".txt";
+        String datei = "Gruppen/Gruppen.txt";
         FileWriter fw = new FileWriter(datei, true);
         BufferedWriter bw = new BufferedWriter(fw);
 

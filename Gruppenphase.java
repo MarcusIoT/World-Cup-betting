@@ -312,17 +312,26 @@ public class Gruppenphase
     /**
      * 
      */
-    public void neuesLand()
+    public void neuesLandUI()
     {
         String[] daten = ui.eingabeAufforderungNeuesLand();
         if(daten != null){
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
-                entferneAlleEinträge();
-                Gruppe gruppe = gruppen.get(schreibeGroß(daten[0]));
-                gruppe.erstelleLand(schreibeGroß(daten[1]));
+                String gruppe = daten[0];
+                String name = daten[1];
+                neuesLand(gruppe, name);
             }
         }
+    }
 
+    /**
+     * 
+     */
+    private void neuesLand(String nameGruppe, String land)
+    {
+        entferneAlleEinträge();
+        Gruppe gruppe = gruppen.get(schreibeGroß(nameGruppe));
+        gruppe.erstelleLand(schreibeGroß(land));
     }
 
     /**
@@ -330,9 +339,22 @@ public class Gruppenphase
      */
     public void neueGruppe()
     {
-        String[] daten = ui.eingabeAufforderungNeueGruppe();
-        if(daten != null){
-            System.out.println(Arrays.toString(daten));
+        String[] datenAlt = ui.eingabeAufforderungNeueGruppe();
+        if(datenAlt != null){ 
+            ArrayList daten = new ArrayList<String>();
+
+            try{
+                io.appendGruppe(datenAlt[0]);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            String [] teile = new String[] {"0"};
+            updateGruppe(datenAlt[0], teile);
+            gruppen.put(datenAlt[0], new Gruppe(datenAlt[0]));
+            for (int i = 1; i < datenAlt.length; i++) {
+                neuesLand(datenAlt[0], datenAlt[i]);
+            }
         }
         else System.out.println("nope");
     }
