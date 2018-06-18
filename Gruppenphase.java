@@ -277,31 +277,34 @@ public class Gruppenphase
     {
         String nameLand = schreibeGroß(ui.eingabeAufforderungEntferneLand());
         if(nameLand != null){
-            if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
-                entferneAlleEinträge();
-                Gruppe gruppe = gibGruppeWennLand(nameLand);
-                String name = gruppe.gibName();
-                String[] teile = gruppe.gibDatenTeile("Gruppen", name);
-                int gruppenGroesse = Integer.valueOf(teile[0]);
-                teile[0] = String.valueOf(gruppenGroesse - 1);
+            Gruppe gruppe = gibGruppeWennLand(nameLand);
+            if(gruppe != null){
+                if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
+                    entferneAlleEinträge();
+                    String name = gruppe.gibName();
+                    String[] teile = gruppe.gibDatenTeile("Gruppen", name);
+                    int gruppenGroesse = Integer.valueOf(teile[0]);
+                    teile[0] = String.valueOf(gruppenGroesse - 1);
 
-                ArrayList daten = new ArrayList<String>();
-                for (int i = 0; i < teile.length; i++) {
-                    daten.add(teile[i]);
-                }
-                daten.remove(nameLand);
-                String[] datenGruppe = new String[daten.size()];
-                daten.toArray( datenGruppe );
-                updateGruppe(name, datenGruppe);
-                gruppe.löscheLänder();
-                gruppe.ladeGruppeninfo(name);
-                try{
-                    io.löscheDatei("Länder", name);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
+                    ArrayList daten = new ArrayList<String>();
+                    for (int i = 0; i < teile.length; i++) {
+                        daten.add(teile[i]);
+                    }
+                    daten.remove(nameLand);
+                    String[] datenGruppe = new String[daten.size()];
+                    daten.toArray( datenGruppe );
+                    updateGruppe(name, datenGruppe);
+                    gruppe.löscheLänder();
+                    gruppe.ladeGruppeninfo(name);
+                    try{
+                        io.löscheDatei("Länder", name);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+            else ui.nachricht("Fehler", "Das Land " + nameLand + " existiert nicht.");
         }
     }
 
@@ -320,7 +323,7 @@ public class Gruppenphase
         }
 
     }
-    
+
     /**
      * 
      */
@@ -328,10 +331,9 @@ public class Gruppenphase
     {
         String[] daten = ui.eingabeAufforderungNeueGruppe();
         if(daten != null){
-            if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
-                entferneAlleEinträge();
-            }
+            System.out.println(Arrays.toString(daten));
         }
+        else System.out.println("nope");
     }
 
 }

@@ -170,7 +170,7 @@ public class UI
             
             if(datenAlt[0].isEmpty() == false && daten.length >= 3) {return daten;}
             if(value == JOptionPane.CANCEL_OPTION){return null;}
-            else {return null;}
+            else {nachricht("Eingabefehler", "Sie müssen eine Gruppe und mindestens 2 Länder eingeben!");  return eingabeAufforderungNeueGruppe();}
         }
         else return null;
     }

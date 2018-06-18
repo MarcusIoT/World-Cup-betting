@@ -6,6 +6,6 @@ SaudiArabien
 Aegypten:Russland- : 
 Aegypten:Uruguay- : 
 Aegypten:SaudiArabien- : 
-Russland:Uruguay-1:2
+Russland:Uruguay- : 
 Russland:SaudiArabien- : 
 Uruguay:SaudiArabien- : 
