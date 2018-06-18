@@ -275,8 +275,9 @@ public class Gruppenphase
      */
     public void entferneLand()
     {
-        String nameLand = schreibeGroß(ui.eingabeAufforderungEntferneLand());
-        if(nameLand != null){
+        String check = ui.eingabeAufforderungEntferneLand();
+        if(check != null){
+            String nameLand = schreibeGroß(check);
             Gruppe gruppe = gibGruppeWennLand(nameLand);
             if(gruppe != null){
                 if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){

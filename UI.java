@@ -132,9 +132,9 @@ public class UI
         if(pane.getValue()!= null){
             int value = ((Integer)pane.getValue()).intValue();
             String daten = name.getText();
-
+            if(daten.isEmpty() == false){return daten;}
             if(value == JOptionPane.CANCEL_OPTION){return null;}
-            else {return daten;}
+            else {return eingabeAufforderungEntferneLand();}
         }
         else return null;
     }
