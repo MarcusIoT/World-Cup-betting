@@ -1,11 +1,4 @@
-4
-Ana
+2
 Tobi
-Jan
-Jacky
-Ana:Tobi- : 
-Ana:Jan- : 
-Ana:Jacky- : 
-Tobi:Jan- : 
-Tobi:Jacky- : 
-Jan:Jacky-1:3
+Sina
+Tobi:Sina- : 

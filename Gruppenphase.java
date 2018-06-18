@@ -25,7 +25,7 @@ public class Gruppenphase
         ui = new UI();
         ladeGruppen();
     }
-
+    
     /**
      * 
      */
@@ -111,40 +111,43 @@ public class Gruppenphase
     public void updateSpielergebnis()
     {
         String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
+        if(datenEingabe != null){
+            int tore1 = Integer.valueOf(datenEingabe[1]);
+            int tore2 = Integer.valueOf(datenEingabe[3]);
+            String land1 = schreibeGroß(datenEingabe[0]);
+            String land2 = schreibeGroß(datenEingabe[2]);
+            boolean check = true;
+            int[] punkte = berechnePunkte(tore1, tore2);
 
-        int tore1 = Integer.valueOf(datenEingabe[1]);
-        int tore2 = Integer.valueOf(datenEingabe[3]);
-        String land1 = schreibeGroß(datenEingabe[0]);
-        String land2 = schreibeGroß(datenEingabe[2]);
+            String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
+            if(gruppeDerLänder != null){
+                Gruppe gruppe = gruppen.get(gruppeDerLänder);
 
-        int[] punkte = berechnePunkte(tore1, tore2);
-
-        String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
-        if(gruppeDerLänder != null){
-            Gruppe gruppe = gruppen.get(gruppeDerLänder);
-
-            if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false
-            && gruppe.prüfeExistenzSpielergebnis(land2, land1) == false){
-                ui.nachricht("Fehler", "Das Ergebnis wurde bereits eingegeben");
+                if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
+                    if(ui.okAbbrechen("Fehler", "Das Ergebnis wurde bereits eingegeben. Möchten sie die alte Eingabe überschreiben?") == false){
+                        check = false;
+                    }                   
+                }
+                if(gruppe.prüfeSchreibweiseSpielergebnis(land1, land2) == true && check == true){
+                    // hier noch die alten Punkte wieder abziehen
+                    updateLand(land1, tore1, punkte[0]); 
+                    updateLand(land2, tore2, punkte[1]);
+                    String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
+                    updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
+                    gruppe.ladeGruppeninfo(gruppeDerLänder);
+                }
+                else if(gruppe.prüfeSchreibweiseSpielergebnis(land2, land1) == true && check == true){
+                    // hier noch die alten Punkte wieder abziehen
+                    updateLand(land1, tore1, punkte[0]); 
+                    updateLand(land2, tore2, punkte[1]);
+                    String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
+                    updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
+                    gruppe.ladeGruppeninfo(gruppeDerLänder);
+                }
             }
-
-            if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == true){
-                updateLand(land1, tore1, punkte[0]); 
-                updateLand(land2, tore2, punkte[1]);
-                String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
-                updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
-                gruppe.ladeGruppeninfo(gruppeDerLänder);
-            }
-            if(gruppe.prüfeExistenzSpielergebnis(land2, land1) == true){
-                updateLand(land1, tore1, punkte[0]); 
-                updateLand(land2, tore2, punkte[1]);
-                String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
-                updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
-                gruppe.ladeGruppeninfo(gruppeDerLänder);
-            }
+            else{ui.nachricht("Fehler", "Die Länder sind nicht in einer Gruppe");}
         }
-        else{ui.nachricht("Fehler", "Die Länder sind nicht in einer Gruppe");}
-    }
+    }    
 
     /**
      * 
@@ -186,7 +189,7 @@ public class Gruppenphase
         String[] teileGruppenDatenAlt = gruppenDatenAlt.split("/");
         for (int i = 0; i < teileGruppenDatenAlt.length; i++) {
             String check = teileGruppenDatenAlt[i];
-            if(check.contains(land1 + ":" + land2 + "-" + " : ") == true){
+            if(check.contains(land1 + ":" + land2) == true){
                 teileGruppenDatenAlt[i] = daten;
             }
         }
@@ -318,11 +321,14 @@ public class Gruppenphase
         if(daten != null){
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
                 String gruppe = daten[0];
-                String name = daten[1];
-                neuesLand(gruppe, name);
+                if(gruppen.containsKey(gruppe) == true){
+                    String name = daten[1];
+                    neuesLand(gruppe, name);
+                }
+                else ui.nachricht("Fehler", "Die Gruppe " + gruppe + " existiert nicht.");
             }
         }
-    }
+    }    
 
     /**
      * 
@@ -342,21 +348,22 @@ public class Gruppenphase
         String[] datenAlt = ui.eingabeAufforderungNeueGruppe();
         if(datenAlt != null){ 
             ArrayList daten = new ArrayList<String>();
-
+            
+            String nameGruppe = String.valueOf((char)(65 + gruppen.size()));
             try{
-                io.appendGruppe(datenAlt[0]);
+                io.appendGruppe(nameGruppe);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
             String [] teile = new String[] {"0"};
-            updateGruppe(datenAlt[0], teile);
-            gruppen.put(datenAlt[0], new Gruppe(datenAlt[0]));
-            for (int i = 1; i < datenAlt.length; i++) {
-                neuesLand(datenAlt[0], datenAlt[i]);
+            updateGruppe(nameGruppe, teile);
+            gruppen.put(nameGruppe, new Gruppe(nameGruppe));
+            for (int i = 0; i < datenAlt.length; i++) {
+                neuesLand(nameGruppe, datenAlt[i]);
             }
         }
-        else System.out.println("nope");
+        else;
     }
 
 }

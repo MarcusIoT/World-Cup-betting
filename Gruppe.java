@@ -204,13 +204,23 @@ public class Gruppe
     public boolean prüfeExistenzSpielergebnis (String land1, String land2)
     {
         String spiel = land1 + ":" + land2;
+        String spielRück = land2 + ":" + land1;
         String check = " : ";
 
-        if(check.equals(spiele.get(spiel)) == true){
+        if(check.equals(spiele.get(spiel)) == true || check.equals(spiele.get(spielRück)) == true){
             return true;
         }
         else return false;
 
+    }
+    
+    public boolean prüfeSchreibweiseSpielergebnis (String land1, String land2)
+    {
+        String spiel = land1 + ":" + land2;      
+        if(spiele.containsKey(spiel) == true){
+            return true;
+        }
+        else return false;
     }
 
     /**
