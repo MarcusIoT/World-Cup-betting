@@ -129,34 +129,18 @@ public class Gruppenphase
             }
 
             if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == true){
-
                 updateLand(land1, tore1, punkte[0]); 
                 updateLand(land2, tore2, punkte[1]);
-
                 String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
-                try{
-                    io.speichereGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+                updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
                 gruppe.ladeGruppeninfo(gruppeDerLänder);
-
             }
             if(gruppe.prüfeExistenzSpielergebnis(land2, land1) == true){
-
                 updateLand(land1, tore1, punkte[0]); 
                 updateLand(land2, tore2, punkte[1]);
-
                 String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
-                try{
-                    io.speichereGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+                updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
                 gruppe.ladeGruppeninfo(gruppeDerLänder);
-
             }
         }
         else{ui.nachricht("Fehler", "Die Länder sind nicht in einer Gruppe");}
@@ -291,7 +275,7 @@ public class Gruppenphase
      */
     public void entferneLand()
     {
-        String nameLand = ui.eingabeAufforderungEntferneLand();
+        String nameLand = schreibeGroß(ui.eingabeAufforderungEntferneLand());
         if(nameLand != null){
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
                 entferneAlleEinträge();
@@ -330,8 +314,8 @@ public class Gruppenphase
         if(daten != null){
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
                 entferneAlleEinträge();
-                Gruppe gruppe = gruppen.get(daten[0]);
-                gruppe.erstelleLand(daten[1]);
+                Gruppe gruppe = gruppen.get(schreibeGroß(daten[0]));
+                gruppe.erstelleLand(schreibeGroß(daten[1]));
             }
         }
 

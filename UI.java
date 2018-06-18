@@ -139,10 +139,28 @@ public class UI
     }
     
     /**
-     * 
+     * TODO
      */
     public String[] eingabeAufforderungNeueGruppe()
     {
-        
+        JTextField gruppe = new JTextField();
+        JTextField name = new JTextField();
+
+        Object[] message = {"Wenn sie ein neues Land zu einer Gruppe hinzu fügen werden alle Daten resetted.", " ", "Gruppe in die das Land soll", gruppe, 
+                "Name des Landes", name};
+
+        JOptionPane pane = new JOptionPane( message, 
+                JOptionPane.PLAIN_MESSAGE, 
+                JOptionPane.OK_CANCEL_OPTION);
+        pane.createDialog(null, "Neues Land").setVisible(true);
+
+        if(pane.getValue()!= null){
+            int value = ((Integer)pane.getValue()).intValue();
+            String[] daten = {gruppe.getText(), name.getText()};
+
+            if(value == JOptionPane.CANCEL_OPTION){return null;}
+            else {return daten;}
+        }
+        else return null;
     }
 }
