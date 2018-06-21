@@ -243,6 +243,7 @@ public class Gruppe
         String[] teile = daten.split(":");
         int tore1 = Integer.valueOf(teile[0]);
         int tore2 = Integer.valueOf(teile[1]);
+        System.out.println("Tore1: " + tore1 + "  Tore2: " + tore2);
         if(tore1 == tore2){
             landEins.subtrahiereWerte(tore1, 1);
             landZwei.subtrahiereWerte(tore2, 1);
@@ -251,7 +252,7 @@ public class Gruppe
             landEins.subtrahiereWerte(tore1, 0);
             landZwei.subtrahiereWerte(tore2, 3);
         }
-        if(tore1 < tore2){
+        if(tore1 > tore2){
             landEins.subtrahiereWerte(tore1, 3);
             landZwei.subtrahiereWerte(tore2, 0);
         }

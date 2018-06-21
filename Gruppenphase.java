@@ -145,7 +145,7 @@ public class Gruppenphase
                     gruppe.ladeGruppeninfo(gruppeDerLänder);
                 }
             }
-            else{ui.nachricht("Fehler", "Die Länder sind nicht in einer Gruppe");}
+            else{ui.nachricht("Fehler", "Die Länder existieren nicht oder sind nicht in einer Gruppe.");}
         }
     }    
 
