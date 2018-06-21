@@ -133,6 +133,7 @@ public class Gruppe
 
         if(teile.length <= gruppenGroesse + 1){
             berechnePaarungen();
+            teile = gibDatenTeile("Gruppen", name);
         }
 
         ladeSpiele(teile);

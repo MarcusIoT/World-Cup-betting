@@ -110,8 +110,8 @@ public class Gruppenphase
 
     public void updateSpielergebnis()
     {
-        String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
         aktualisiereGruppeninfo();
+        String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
         if(datenEingabe != null){ 
             int tore1 = Integer.valueOf(datenEingabe[1]);
             int tore2 = Integer.valueOf(datenEingabe[3]);
