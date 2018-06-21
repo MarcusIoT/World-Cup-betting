@@ -213,7 +213,51 @@ public class Gruppe
         else return false;
 
     }
+
+    /**
+     * 
+     */
+    public void löscheTorePunkteSpielergebnis (String land1, String land2)
+    {
+        String spielVor = land1 + ":" + land2;
+        String spielRück = land2 + ":" + land1;
+        String spiel = "";
+        String daten = "";
+        String landEINS = land1;        
+        String landZWEI = land2;
+        
+        if(spiele.containsKey(spielVor) == true){
+            spiel = spielVor;
+        }
+        if(spiele.containsKey(spielRück) == true){
+            spiel = spielRück;
+            landEINS = land2;
+            landZWEI = land1;
+        }
+        
+        Land landEins = länder.get(landEINS);
+        Land landZwei = länder.get(landZWEI);
+        
+        daten = spiele.get(spiel);
+        String[] teile = daten.split(":");
+        int tore1 = Integer.valueOf(teile[0]);
+        int tore2 = Integer.valueOf(teile[1]);
+        if(tore1 == tore2){
+            landEins.subtrahiereWerte(tore1, 1);
+            landZwei.subtrahiereWerte(tore2, 1);
+        }
+        if(tore1 < tore2){
+            landEins.subtrahiereWerte(tore1, 0);
+            landZwei.subtrahiereWerte(tore2, 3);
+        }
+        if(tore1 < tore2){
+            landEins.subtrahiereWerte(tore1, 3);
+            landZwei.subtrahiereWerte(tore2, 0);
+        }
+     
+    }
     
+
     public boolean prüfeSchreibweiseSpielergebnis (String land1, String land2)
     {
         String spiel = land1 + ":" + land2;      

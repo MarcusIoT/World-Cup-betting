@@ -31,6 +31,12 @@ public class Land
         this.tore = tore;
         this.punkte = punkte;
     }
+    
+    public void subtrahiereWerte (int tore, int punkte)
+    {
+        this.tore -= tore;
+        this.punkte -= punkte;
+    }
 
     /**
      * Gibt den Namen Zurück.

@@ -25,7 +25,7 @@ public class Gruppenphase
         ui = new UI();
         ladeGruppen();
     }
-    
+
     /**
      * 
      */
@@ -111,7 +111,8 @@ public class Gruppenphase
     public void updateSpielergebnis()
     {
         String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
-        if(datenEingabe != null){
+        aktualisiereGruppeninfo();
+        if(datenEingabe != null){ 
             int tore1 = Integer.valueOf(datenEingabe[1]);
             int tore2 = Integer.valueOf(datenEingabe[3]);
             String land1 = schreibeGroß(datenEingabe[0]);
@@ -126,10 +127,10 @@ public class Gruppenphase
                 if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
                     if(ui.okAbbrechen("Fehler", "Das Ergebnis wurde bereits eingegeben. Möchten sie die alte Eingabe überschreiben?") == false){
                         check = false;
-                    }                   
+                    }
+                    else gruppe.löscheTorePunkteSpielergebnis(land1, land2);
                 }
-                if(gruppe.prüfeSchreibweiseSpielergebnis(land1, land2) == true && check == true){
-                    // hier noch die alten Punkte wieder abziehen
+                if(gruppe.prüfeSchreibweiseSpielergebnis(land1, land2) == true && check == true){              
                     updateLand(land1, tore1, punkte[0]); 
                     updateLand(land2, tore2, punkte[1]);
                     String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
@@ -137,7 +138,6 @@ public class Gruppenphase
                     gruppe.ladeGruppeninfo(gruppeDerLänder);
                 }
                 else if(gruppe.prüfeSchreibweiseSpielergebnis(land2, land1) == true && check == true){
-                    // hier noch die alten Punkte wieder abziehen
                     updateLand(land1, tore1, punkte[0]); 
                     updateLand(land2, tore2, punkte[1]);
                     String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
@@ -222,6 +222,17 @@ public class Gruppenphase
         }
 
         ui.erstelleSpielplan(daten);
+    }
+
+    /**
+     * 
+     */
+    public void aktualisiereGruppeninfo()
+    {
+        for (String key : gruppen.keySet()) {
+            Gruppe gruppe = gruppen.get(key);
+            gruppe.ladeGruppeninfo(key);
+        }
     }
 
     /**
@@ -348,7 +359,7 @@ public class Gruppenphase
         String[] datenAlt = ui.eingabeAufforderungNeueGruppe();
         if(datenAlt != null){ 
             ArrayList daten = new ArrayList<String>();
-            
+
             String nameGruppe = String.valueOf((char)(65 + gruppen.size()));
             try{
                 io.appendGruppe(nameGruppe);
