@@ -178,4 +178,27 @@ public class UI
         }
         else return null;
     }
+    
+      public String eingabeAufforderungEntferneGruppe()
+    {
+        JTextField gruppe = new JTextField();
+        JTextField name = new JTextField();
+
+        Object[] message = {"Wenn sie eine Gruppe entfernen werden alle Daten resetted.", " ", 
+                "Name der Gruppe", name};
+
+        JOptionPane pane = new JOptionPane( message, 
+                JOptionPane.PLAIN_MESSAGE, 
+                JOptionPane.OK_CANCEL_OPTION);
+        pane.createDialog(null, "Gruppe Entfernen").setVisible(true);
+
+        if(pane.getValue()!= null){
+            int value = ((Integer)pane.getValue()).intValue();
+            String daten = name.getText();
+            if(daten.isEmpty() == false){return daten;}
+            if(value == JOptionPane.CANCEL_OPTION){return null;}
+            else {nachricht("Eingabefehler", "Sie müssen alle Felder ausfüllen!"); return eingabeAufforderungEntferneLand();}
+        }
+        else return null;
+    }   
 }

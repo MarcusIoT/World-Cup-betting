@@ -227,7 +227,7 @@ public class Gruppenphase
     /**
      * 
      */
-    public void aktualisiereGruppeninfo()
+    private void aktualisiereGruppeninfo()
     {
         for (String key : gruppen.keySet()) {
             Gruppe gruppe = gruppen.get(key);
@@ -333,7 +333,7 @@ public class Gruppenphase
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
                 String gruppe = daten[0];
                 if(gruppen.containsKey(gruppe) == true){
-                    String name = daten[1];
+                    String name = schreibeGroß(daten[1]);
                     neuesLand(gruppe, name);
                 }
                 else ui.nachricht("Fehler", "Die Gruppe " + gruppe + " existiert nicht.");
@@ -375,6 +375,66 @@ public class Gruppenphase
             }
         }
         else;
+    }
+
+    private String[] gibGruppen()
+    {
+        StringBuffer daten = new StringBuffer();
+        for (String key : gruppen.keySet()) {
+            if (daten.length() != 0) {
+                daten.append("/");
+            }
+            daten.append(key);         
+        }
+        String sDaten = daten.toString();
+        String[] teile = sDaten.split("/");
+        return teile;
+    }
+
+    /**
+     * 
+     */
+    public void entferneGruppe()
+    {
+        String daten = ui.eingabeAufforderungEntferneGruppe();
+        String[] gruppenFest = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        ArrayList<String> arraylist= new ArrayList<String>(Arrays.asList(gruppenFest));
+        if(daten != null){
+            String nameGruppe = schreibeGroß(daten);
+            if(arraylist.contains(nameGruppe) == false){
+                if(gruppen.containsKey(nameGruppe)){
+                    Gruppe gruppe = gruppen.get(nameGruppe);
+                    String[] länder = gruppe.gibLänder();
+                    for (int i = 0; i < länder.length; i++) {
+                        try{
+                            io.löscheDatei("Länder", länder[i]);
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }                
+                    gruppen.remove(nameGruppe);
+
+                    String[] datenGruppen = gibGruppen();
+                    try{
+                        io.speichereGruppe("Gruppen", datenGruppen);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try{
+                        io.löscheDatei("Gruppen", nameGruppe);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                else ui.nachricht("Fehler", "Die Gruppe " + nameGruppe + " existiert nicht.");
+            }
+            else ui.nachricht("Fehler", "Die Gruppe " + nameGruppe + " darf nicht entfernt werden.");
+        }
     }
 
 }
