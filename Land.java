@@ -6,12 +6,13 @@
  * @author Marcus Schoch
  * @version 17.06.2018
  */
+
 public class Land
 {   
     private String name;
     private int tore;
     private int punkte;
-    
+
     /**
      * Wird ein Objekt der Klasse Land erzeugt, muss ihm der Name, die Tore und die Punkte übergeben werden.
      * Wichtig ist es eben auch die Tore und Punkte zu übergeben, um bei Neustart des Programmes direkt aus
@@ -31,7 +32,7 @@ public class Land
         this.tore = tore;
         this.punkte = punkte;
     }
-    
+
     public void subtrahiereWerte (int tore, int punkte)
     {
         this.tore -= tore;
@@ -66,5 +67,5 @@ public class Land
         String[] daten = {name, String.valueOf(this.tore), String.valueOf(this.punkte)};
         return daten;
     }
-    
+
 }

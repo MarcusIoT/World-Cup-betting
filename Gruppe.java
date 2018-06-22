@@ -15,6 +15,7 @@ public class Gruppe
     private IO io;
     private String nameGruppe;
     private HashMap<String, String> spiele;
+
     /**
      * Konstructor
      */
@@ -226,7 +227,7 @@ public class Gruppe
         String daten = "";
         String landEINS = land1;        
         String landZWEI = land2;
-        
+
         if(spiele.containsKey(spielVor) == true){
             spiel = spielVor;
         }
@@ -235,10 +236,10 @@ public class Gruppe
             landEINS = land2;
             landZWEI = land1;
         }
-        
+
         Land landEins = länder.get(landEINS);
         Land landZwei = länder.get(landZWEI);
-        
+
         daten = spiele.get(spiel);
         String[] teile = daten.split(":");
         int tore1 = Integer.valueOf(teile[0]);
@@ -256,9 +257,8 @@ public class Gruppe
             landEins.subtrahiereWerte(tore1, 3);
             landZwei.subtrahiereWerte(tore2, 0);
         }
-     
+
     }
-    
 
     public boolean prüfeSchreibweiseSpielergebnis (String land1, String land2)
     {
