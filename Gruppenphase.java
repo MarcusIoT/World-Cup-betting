@@ -442,7 +442,15 @@ public class Gruppenphase
      */
     public void ZeigeTorePunkteLand()
     {
-        
+        String daten = ui.eingabeAufforderungEinFeld("Zeige Land", "", "Name des Landes");
+        if(daten != null){
+            String nameLand = schreibeGroß(daten);
+            Gruppe gruppe = gibGruppeWennLand(nameLand);
+            if(gruppe != null){
+                String[] torePunkte = gruppe.gibInfoLand(nameLand);
+                ui.nachricht("Information", "Das Land " + nameLand + " hat " + torePunkte[1] + " Tore geschossen und derzeit " + torePunkte[2] + " Punkte.");
+            }
+            else ui.nachricht("Fehler", "Das Land " + nameLand + " existiert nicht.");
+        }      
     }
-
 }
