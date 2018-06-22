@@ -6,12 +6,12 @@ import java.util.Arrays;
  * Die Klasse UI erstellt über awt und swing ein User Interface, welches über die Hauptklasse Gruppenphase aufgerufen wird.
  *
  * @author Marcus Schoch
- * @version 17.06.2018
+ * @version 22.06.2018
  */
 public class UI
 {
     /**
-     * Der Konstruktor ist leer, denn die Klasse benötigt keine globalen Werte oder Übergaben bei der Erstellung.
+     * Kostruktor für Objekte der Klasse UI.
      */
     public UI()
     {
@@ -35,7 +35,7 @@ public class UI
     }
 
     /**
-     * Öffnet ein Fenster, dass eine Nachricht enthält. Dies kann mit OK oder dem [X] schließen Icon.
+     * Öffnet ein Fenster, dass eine Nachricht enthält. Dies kann mit OK oder dem [X] Icon geschlossen werden.
      */
     public void nachricht(String kopfzeile, String nachricht)
     {
@@ -46,7 +46,11 @@ public class UI
     }
 
     /**
-     * 
+     * Öffnet ein Fenster, in das ein Spielergebnis in vier Felder eingetragen werden kann. 
+     * Die Kopfzeile enthält "Spielergebnis".
+     * Bei Auswahl von OK durch den Benutzer wird ein Array aller Felder zurückgeliefert und bei Abbrechen null.
+     * Es wird zusätzlich die Eingabe von negativen werten der Tore ausgeschlossen und kenntlich gemacht,
+     * sowie nur bei ausfüllen aller Felder auch wirklich das Array zurück geliefert.
      */
     public String[] eingabeAufforderungSpielergebnis()
     {
@@ -76,7 +80,8 @@ public class UI
     }
 
     /**
-     * ToDo
+     * Öffnet ein Fenster und zeigt die Gruppen und deren Paarungen und Ergebnise in einem Grid Layout an.
+     * Die Große und Anordnung des Layouts wird aufgrund der Gruppenanzahl angepasst.
      */
     public void erstelleSpielplan(String daten)
     {
@@ -94,7 +99,9 @@ public class UI
     }
 
     /**
-     * 
+     * Öffnet ein Fenster, in das ein Spielergebnis in vier Felder eingetragen werden kann. 
+     * Bei Auswahl von OK durch den Benutzer wird ein Array aller Felder zurückgeliefert und bei Abbrechen null.
+     * Nur bei ausfüllen aller Felder auch wirklich das Array zurück geliefert, ansonsten erscheint eine Nachricht.
      */
     public String[] eingabeAufforderungNeuesLand()
     {
@@ -121,7 +128,10 @@ public class UI
     }
 
     /**
-     * TODO
+     * Öffnet ein Fenster mit einer Nachricht und vier Feldern zur Eingabe von möglichen vier Ländern.
+     * Bei Auswahl von OK durch den Benutzer wird ein Array aller eingegebenen Felder zurückgeliefert und bei Abbrechen null.
+     * Die Eingabe von mindestens zwei Feldern ist eine Bedingung, so liefert diese Methode auch nur ein passendes Array zurück,
+     * wenn diese erfüllt ist.
      */
     public String[] eingabeAufforderungNeueGruppe()
     {
@@ -131,7 +141,7 @@ public class UI
         JTextField name3 = new JTextField();
         JTextField name4 = new JTextField();
 
-        Object[] message = {"Wenn sie eine neue Gruppe hinzu fügen werden alle Daten resetted.", " ", 
+        Object[] message = {"Fügen sie bitte mindestens zwei Länder hinzu.", " ", 
                 "Namen der Länder", name1, name2, name3, name4};
 
         JOptionPane pane = new JOptionPane( message, 
@@ -155,7 +165,11 @@ public class UI
         }
         else return null;
     }   
-
+    
+    /**
+     * Öffnet ein Fenster mit einer Nachricht und einem Feld zur Eingabe entweder möglicher Länder oder Gruppen je nach verwendung.
+     * Deshalb müssen die Nachricht, Kopfzeile und Beschreibung auch übergeben werden um die Variabilität zu gewährleisten.
+     */
     public String eingabeAufforderungEinFeld(String kopfzeile, String nachricht, String textfeld)
     {
         JTextField gruppe = new JTextField();

@@ -11,7 +11,7 @@ import java.nio.file.*;
 public class IO
 {
     /**
-     * Kostruktor für Objekte der Klasse IO
+     * Kostruktor für Objekte der Klasse IO.
      */
     public IO()
     {
