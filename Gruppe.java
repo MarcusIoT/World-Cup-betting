@@ -3,10 +3,12 @@ import java.math.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 /**
- *
+ * Die Klasse Gruppe beinhaltet eine Hashmap in der als Key ein String vorliegt und als Value ein Objekt der Klasse Land, 
+ * sowie eine Hasmap in der als Key ein String in Form "Land1:Land2" udn als Value ein String in Form "Tore1:Tore2" vorliegt.
+ * 
  *
  * @author Marcus Schoch
- * @version 17.06.2018
+ * @version 22.06.2018
  */
 public class Gruppe
 {
@@ -17,7 +19,10 @@ public class Gruppe
     private HashMap<String, String> spiele;
 
     /**
-     * Konstructor
+     * Kostruktor für Objekte der Klasse Gruppe.
+     * Beim Erzeugen eines Objektes der Klasse Guppe muss diesem ein Name übergeben werden, welcher auch global gespeichert wird.
+     * Zusätzlich wird ein Objekt der Klasse IO erstellt und die zwei Hashmaps Länder und Spiele erstellt.
+     * Des Weiteren wird die Methode ladeGruppeninfo() aufgerufen.
      */
     public Gruppe(String name)
     {
@@ -169,7 +174,7 @@ public class Gruppe
         return teile;
     }
 
-    private String gibDaten(String ordner, String datei)
+    public String gibDaten(String ordner, String datei)
     {
         String daten = "";
         try{

@@ -4,7 +4,7 @@
  * 
  * 
  * @author Marcus Schoch
- * @version 17.06.2018
+ * @version 22.06.2018
  */
 
 public class Land
@@ -14,6 +14,7 @@ public class Land
     private int punkte;
 
     /**
+     * Kostruktor für Objekte der Klasse Land.
      * Wird ein Objekt der Klasse Land erzeugt, muss ihm der Name, die Tore und die Punkte übergeben werden.
      * Wichtig ist es eben auch die Tore und Punkte zu übergeben, um bei Neustart des Programmes direkt aus
      * den Ausgelesenen Daten der Klasse IO alle Länder mit aktuellen Werten zu erzeugen.
