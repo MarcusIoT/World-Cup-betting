@@ -110,41 +110,44 @@ public class Gruppenphase
 
     public void updateSpielergebnis()
     {
+        aktualisiereGruppeninfo();
         String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
+        if(datenEingabe != null){ 
+            int tore1 = Integer.valueOf(datenEingabe[1]);
+            int tore2 = Integer.valueOf(datenEingabe[3]);
+            String land1 = schreibeGroß(datenEingabe[0]);
+            String land2 = schreibeGroß(datenEingabe[2]);
+            boolean check = true;
+            int[] punkte = berechnePunkte(tore1, tore2);
 
-        int tore1 = Integer.valueOf(datenEingabe[1]);
-        int tore2 = Integer.valueOf(datenEingabe[3]);
-        String land1 = schreibeGroß(datenEingabe[0]);
-        String land2 = schreibeGroß(datenEingabe[2]);
+            String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
+            if(gruppeDerLänder != null){
+                Gruppe gruppe = gruppen.get(gruppeDerLänder);
 
-        int[] punkte = berechnePunkte(tore1, tore2);
-
-        String gruppeDerLänder = prüfeLänderInGruppe(land1, land2);
-        if(gruppeDerLänder != null){
-            Gruppe gruppe = gruppen.get(gruppeDerLänder);
-
-            if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false
-            && gruppe.prüfeExistenzSpielergebnis(land2, land1) == false){
-                ui.nachricht("Fehler", "Das Ergebnis wurde bereits eingegeben");
+                if (gruppe.prüfeExistenzSpielergebnis(land1, land2) == false){
+                    if(ui.okAbbrechen("Fehler", "Das Ergebnis wurde bereits eingegeben. Möchten sie die alte Eingabe überschreiben?") == false){
+                        check = false;
+                    }
+                    else gruppe.löscheTorePunkteSpielergebnis(land1, land2);
+                }
+                if(gruppe.prüfeSchreibweiseSpielergebnis(land1, land2) == true && check == true){              
+                    updateLand(land1, tore1, punkte[0]); 
+                    updateLand(land2, tore2, punkte[1]);
+                    String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
+                    updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
+                    gruppe.ladeGruppeninfo(gruppeDerLänder);
+                }
+                else if(gruppe.prüfeSchreibweiseSpielergebnis(land2, land1) == true && check == true){
+                    updateLand(land1, tore1, punkte[0]); 
+                    updateLand(land2, tore2, punkte[1]);
+                    String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
+                    updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
+                    gruppe.ladeGruppeninfo(gruppeDerLänder);
+                }
             }
-
-            if(gruppe.prüfeExistenzSpielergebnis(land1, land2) == true){
-                updateLand(land1, tore1, punkte[0]); 
-                updateLand(land2, tore2, punkte[1]);
-                String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
-                updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land1, land2, daten));
-                gruppe.ladeGruppeninfo(gruppeDerLänder);
-            }
-            if(gruppe.prüfeExistenzSpielergebnis(land2, land1) == true){
-                updateLand(land1, tore1, punkte[0]); 
-                updateLand(land2, tore2, punkte[1]);
-                String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
-                updateGruppe(gruppeDerLänder, updateGruppe(gruppeDerLänder, land2, land1, daten));
-                gruppe.ladeGruppeninfo(gruppeDerLänder);
-            }
+            else{ui.nachricht("Fehler", "Die Länder existieren nicht oder sind nicht in einer Gruppe.");}
         }
-        else{ui.nachricht("Fehler", "Die Länder sind nicht in einer Gruppe");}
-    }
+    }    
 
     /**
      * 
@@ -186,7 +189,7 @@ public class Gruppenphase
         String[] teileGruppenDatenAlt = gruppenDatenAlt.split("/");
         for (int i = 0; i < teileGruppenDatenAlt.length; i++) {
             String check = teileGruppenDatenAlt[i];
-            if(check.contains(land1 + ":" + land2 + "-" + " : ") == true){
+            if(check.contains(land1 + ":" + land2) == true){
                 teileGruppenDatenAlt[i] = daten;
             }
         }
@@ -219,6 +222,17 @@ public class Gruppenphase
         }
 
         ui.erstelleSpielplan(daten);
+    }
+
+    /**
+     * 
+     */
+    private void aktualisiereGruppeninfo()
+    {
+        for (String key : gruppen.keySet()) {
+            Gruppe gruppe = gruppen.get(key);
+            gruppe.ladeGruppeninfo(key);
+        }
     }
 
     /**
@@ -275,7 +289,7 @@ public class Gruppenphase
      */
     public void entferneLand()
     {
-        String check = ui.eingabeAufforderungEntferneLand();
+        String check = ui.eingabeAufforderungEinFeld("Land Entfernen", "Wenn sie ein Land aus einer Gruppe entfernen werden alle Daten resetted.", "Name des Landes");
         if(check != null){
             String nameLand = schreibeGroß(check);
             Gruppe gruppe = gibGruppeWennLand(nameLand);
@@ -318,11 +332,14 @@ public class Gruppenphase
         if(daten != null){
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
                 String gruppe = daten[0];
-                String name = daten[1];
-                neuesLand(gruppe, name);
+                if(gruppen.containsKey(gruppe) == true){
+                    String name = schreibeGroß(daten[1]);
+                    neuesLand(gruppe, name);
+                }
+                else ui.nachricht("Fehler", "Die Gruppe " + gruppe + " existiert nicht.");
             }
         }
-    }
+    }    
 
     /**
      * 
@@ -343,20 +360,89 @@ public class Gruppenphase
         if(datenAlt != null){ 
             ArrayList daten = new ArrayList<String>();
 
+            String nameGruppe = String.valueOf((char)(65 + gruppen.size()));
             try{
-                io.appendGruppe(datenAlt[0]);
+                io.appendGruppe(nameGruppe);
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
             String [] teile = new String[] {"0"};
-            updateGruppe(datenAlt[0], teile);
-            gruppen.put(datenAlt[0], new Gruppe(datenAlt[0]));
-            for (int i = 1; i < datenAlt.length; i++) {
-                neuesLand(datenAlt[0], datenAlt[i]);
+            updateGruppe(nameGruppe, teile);
+            gruppen.put(nameGruppe, new Gruppe(nameGruppe));
+            for (int i = 0; i < datenAlt.length; i++) {
+                neuesLand(nameGruppe, datenAlt[i]);
             }
         }
-        else System.out.println("nope");
+        else;
+    }
+
+    private String[] gibGruppen()
+    {
+        StringBuffer daten = new StringBuffer();
+        for (String key : gruppen.keySet()) {
+            if (daten.length() != 0) {
+                daten.append("/");
+            }
+            daten.append(key);         
+        }
+        String sDaten = daten.toString();
+        String[] teile = sDaten.split("/");
+        return teile;
+    }
+
+    /**
+     * 
+     */
+    public void entferneGruppe()
+    {
+        String daten = ui.eingabeAufforderungEinFeld("Gruppe Entfernen", "Wenn sie eine Gruppe entfernen werden deren Länder gelöscht.", "Name der Gruppe");
+        String[] gruppenFest = {"A", "B", "C", "D", "E", "F", "G", "H"};
+        ArrayList<String> arraylist= new ArrayList<String>(Arrays.asList(gruppenFest));
+        if(daten != null){
+            String nameGruppe = schreibeGroß(daten);
+            if(arraylist.contains(nameGruppe) == false){
+                if(gruppen.containsKey(nameGruppe)){
+                    Gruppe gruppe = gruppen.get(nameGruppe);
+                    String[] länder = gruppe.gibLänder();
+                    for (int i = 0; i < länder.length; i++) {
+                        try{
+                            io.löscheDatei("Länder", länder[i]);
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }                
+                    gruppen.remove(nameGruppe);
+
+                    String[] datenGruppen = gibGruppen();
+                    try{
+                        io.speichereGruppe("Gruppen", datenGruppen);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    try{
+                        io.löscheDatei("Gruppen", nameGruppe);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                else ui.nachricht("Fehler", "Die Gruppe " + nameGruppe + " existiert nicht.");
+            }
+            else ui.nachricht("Fehler", "Die Gruppe " + nameGruppe + " darf nicht entfernt werden.");
+        }
+    }
+
+    /**
+     * 
+     */
+    public void ZeigeTorePunkteLand()
+    {
+        
     }
 
 }

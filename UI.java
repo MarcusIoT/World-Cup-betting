@@ -64,10 +64,13 @@ public class UI
         pane.createDialog(null, "Spielergebnis").setVisible(true);
         if(pane.getValue()!= null){
             int value = ((Integer)pane.getValue()).intValue();
-            String[] daten = {mannschaft1.getText(), tore1.getText(), mannschaft2.getText(), tore2.getText()};
-
             if(value == JOptionPane.CANCEL_OPTION){return null;}
-            else {return daten;}
+            if(mannschaft1.getText().isEmpty() == false && tore1.getText().isEmpty() == false && mannschaft2.getText().isEmpty() == false && tore2.getText().isEmpty() == false){
+                String[] daten = {mannschaft1.getText(), tore1.getText(), mannschaft2.getText(), tore2.getText()};
+                if(Integer.valueOf(tore1.getText()) >= 0 && Integer.valueOf(tore2.getText()) >= 0){return daten;}           
+                else {nachricht("Eingabefehler", "Sie können nur positive Werte eintragen");  return eingabeAufforderungSpielergebnis();}
+            }
+            else {nachricht("Eingabefehler", "Sie müssen alle Felder ausfüllen!");  return eingabeAufforderungSpielergebnis();}
         }
         else return null;
     }
@@ -108,33 +111,11 @@ public class UI
 
         if(pane.getValue()!= null){
             int value = ((Integer)pane.getValue()).intValue();
-            String[] daten = {gruppe.getText(), name.getText()};
-
             if(value == JOptionPane.CANCEL_OPTION){return null;}
-            else {return daten;}
-        }
-        else return null;
-    }
-
-    public String eingabeAufforderungEntferneLand()
-    {
-        JTextField gruppe = new JTextField();
-        JTextField name = new JTextField();
-
-        Object[] message = {"Wenn sie ein Land aus einer Gruppe entfernen werden alle Daten resetted.", " ", 
-                "Name des Landes", name};
-
-        JOptionPane pane = new JOptionPane( message, 
-                JOptionPane.PLAIN_MESSAGE, 
-                JOptionPane.OK_CANCEL_OPTION);
-        pane.createDialog(null, "Land Entfernen").setVisible(true);
-
-        if(pane.getValue()!= null){
-            int value = ((Integer)pane.getValue()).intValue();
-            String daten = name.getText();
-            if(daten.isEmpty() == false){return daten;}
-            if(value == JOptionPane.CANCEL_OPTION){return null;}
-            else {return eingabeAufforderungEntferneLand();}
+            if(gruppe.getText().isEmpty() == false && name.getText().isEmpty() == false){
+                String[] daten = {gruppe.getText(), name.getText()};
+                return daten;}
+            else {nachricht("Eingabefehler", "Sie müssen alle Felder ausfüllen!");  return eingabeAufforderungNeuesLand();}
         }
         else return null;
     }
@@ -150,8 +131,8 @@ public class UI
         JTextField name3 = new JTextField();
         JTextField name4 = new JTextField();
 
-        Object[] message = {"Wenn sie eine neue Gruppe hinzu fügen werden alle Daten resetted.", " ", "Name der Gruppe", gruppe, 
-                "Name der Länder", name1, name2, name3, name4};
+        Object[] message = {"Wenn sie eine neue Gruppe hinzu fügen werden alle Daten resetted.", " ", 
+                "Namen der Länder", name1, name2, name3, name4};
 
         JOptionPane pane = new JOptionPane( message, 
                 JOptionPane.PLAIN_MESSAGE, 
@@ -160,18 +141,41 @@ public class UI
 
         if(pane.getValue()!= null){
             int value = ((Integer)pane.getValue()).intValue();
-            String[] datenAlt = {gruppe.getText(), name1.getText(), name2.getText(), name3.getText(), name4.getText()};
+            String[] datenAlt = {name1.getText(), name2.getText(), name3.getText(), name4.getText()};
             ArrayList teile = new ArrayList<String>();
             for (int i = 0; i < datenAlt.length; i++) {
                 if(datenAlt[i].isEmpty() == false){ teile.add(datenAlt[i]);}
             }
             String[] daten = new String[teile.size()];
             teile.toArray( daten );
-            
-            if(datenAlt[0].isEmpty() == false && daten.length >= 3) {return daten;}
+
+            if( daten.length >= 2) {return daten;}
             if(value == JOptionPane.CANCEL_OPTION){return null;}
-            else {nachricht("Eingabefehler", "Sie müssen eine Gruppe und mindestens 2 Länder eingeben!");  return eingabeAufforderungNeueGruppe();}
+            else {nachricht("Eingabefehler", "Sie müssen mindestens 2 Länder eingeben!");  return eingabeAufforderungNeueGruppe();}
         }
         else return null;
-    }
+    }   
+
+    public String eingabeAufforderungEinFeld(String kopfzeile, String nachricht, String textfeld)
+    {
+        JTextField gruppe = new JTextField();
+        JTextField name = new JTextField();
+
+        Object[] message = {nachricht, " ", 
+                textfeld, name};
+
+        JOptionPane pane = new JOptionPane( message, 
+                JOptionPane.PLAIN_MESSAGE, 
+                JOptionPane.OK_CANCEL_OPTION);
+        pane.createDialog(null, kopfzeile).setVisible(true);
+
+        if(pane.getValue()!= null){
+            int value = ((Integer)pane.getValue()).intValue();
+            String daten = name.getText();
+            if(daten.isEmpty() == false){return daten;}
+            if(value == JOptionPane.CANCEL_OPTION){return null;}
+            else {nachricht("Eingabefehler", "Sie müssen alle Felder ausfüllen!"); return eingabeAufforderungEinFeld(kopfzeile, nachricht, textfeld);}
+        }
+        else return null;
+    } 
 }
