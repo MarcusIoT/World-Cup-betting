@@ -4,19 +4,20 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 /**
- * 
+ * Die Klasse Gruppenphase beinhaltet eine Hasmap aller Gruppen und dient als Hauptklasse zur ausführung des ganzen Programmes.
  * 
  * @author Marcus Schoch; HfG; IoT3
  * @version 24.06.2018
  */
 public class Gruppenphase
 {
-    private HashMap<String, Gruppe> gruppen; // das muss zur Hashmap gemacht werden oder in die txt geschrieben werden
+    private HashMap<String, Gruppe> gruppen;
     private IO io;
     private UI ui;
 
     /**
-     * Constructor for objects of class Gruppen
+     * Konstruktor für Objekte der Klasse Gruppenphase.
+     * Beim Programmstart durch erzeugen eines Objektes der Klasse Gruppenphase werden die Gruppen und deren enthaltene Informationen geladen.
      */
     public Gruppenphase()
     {
@@ -27,7 +28,7 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Liest aus der Text Datei Gruppen die Namen aller präsenten Gruppen aus und lädt diese und deren Informationen in das laufende Programm.
      */
     private void ladeGruppen()
     {
@@ -46,7 +47,11 @@ public class Gruppenphase
     }
 
     /**
+     * Gibt das Objekt der Klasse Gruppe zurück, welches das übergebene Land enthält.
      * 
+     * @param land  Name des Landes von dem die Gruppe ermittelt werden soll
+     * 
+     * @return Gibt ein Objekt der Klasse Gruppe zurück, wenn sich das Land darin befindet, ansonten null
      */
     private Gruppe gibGruppeWennLand(String land)
     {
@@ -63,14 +68,13 @@ public class Gruppenphase
         return null;
     }
 
-    private String[] gibDatenSpielergebnis(String land, int tore, int punkte)
-    {
-        Gruppe gruppe = gibGruppeWennLand(land);
-        return gruppe.gibUpdatedInfoLand(land, tore, punkte);
-    }
-
     /**
+     * Prüft ob beide Länder in einer Gruppe sind und gibt dann die Gruppe zurück wenn dem so ist.
      * 
+     * @param land1 Name eines Landes als String
+     * @param land2 Name eines Landes als String
+     * 
+     * @return Objekt der Klasse Gruppe wenn die Länder beide darin sind, ansonsten null
      */
     private String prüfeLänderInGruppe(String land1, String land2)
     {
@@ -94,9 +98,14 @@ public class Gruppenphase
         else{return null;}
 
     }
-
+        
     /**
+     * Berechnet die Punkte der Länder nach einem Spiel und gibt diese in einem Array zurück.
      * 
+     * @param tore1 Tore als Integer
+     * @param tore2 Tore als Integer
+     * 
+     * @return Punkte zugehörig zu den Länder in richtiger Reihenfolge als Array
      */
     private int[] berechnePunkte(int tore1, int tore2)
     {
@@ -105,9 +114,15 @@ public class Gruppenphase
         if(tore1 > tore2){punkte[0] = 3;}
         if(tore1 < tore2){punkte[1] = 3;}
         if(tore1 == tore2){punkte[0] = 1; punkte[1] = 1;}
-        return punkte; // muss noch fertig
+        return punkte;
     }
 
+    /**
+     * Öffnet ein Fenster zum Eintragen eines neuen Spielergebnisses.
+     * Fehlermeldungen erscheinen, wenn die Länder nicht in einer Gruppe sind oder wenn dieses Ergebnis bereits existiert.
+     * Die möglichkeit besteht dann diesen Eintrag zu überscheiben.
+     * Bei einem erfolgreichen Eintrag werden alle Ergebnise berechnet, und direkt abgespeichert.
+     */
     public void neuesSpielergebnis()
     {
         aktualisiereGruppeninfo();
@@ -150,18 +165,29 @@ public class Gruppenphase
     }    
 
     /**
+     * Speichert aktualisierte Informationen zu einem Land.
      * 
+     * @param land  Land als String
+     * @param tore  Tore als Integer
+     * @param punkte    Punkte als Integer
      */
     private void speichereLand(String land, int tore, int punkte)
     {
+        Gruppe gruppe = gibGruppeWennLand(land);
         try{
-            io.speichereLand(gibDatenSpielergebnis(land, tore, punkte));
+            io.speichereLand(gruppe.gibUpdatedInfoLand(land, tore, punkte));
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Speichert übergebene Informationen zu einer Gruppe.
+     * 
+     * @param name  Name der Gruppe
+     * @param teile Array von Informationen zu der Gruppe
+     */
     private void speichereGruppe(String name, String[] teile)
     {
         try{
@@ -173,7 +199,14 @@ public class Gruppenphase
     }
 
     /**
+     * Fügt das Spielergebnis in das richtige Feld des Arrays bestehend aus den Informationen der Gruppe.
      * 
+     * @param nameGruppe    Name der Gruppe als String
+     * @param land1 Name eines Landes als String
+     * @param land2 Name eines Landes als String
+     * @param daten Informationen der Gruppe
+     * 
+     * @return Array mit allen Informationen und dem eingefügten Ergebnis
      */
     private String[] updateGruppeSpielinfo(String nameGruppe, String land1, String land2, String daten)
     {        
@@ -193,7 +226,11 @@ public class Gruppenphase
     }
 
     /**
+     * Ändert den ersten Buchstaben des übergebenen Strings in einen Großbuchstaben um.
      * 
+     * @param eingabe   Irgendeinen String
+     * 
+     * @return diesen String groß geschrieben
      */
     private String schreibeGroß(String eingabe)
     {
@@ -202,7 +239,7 @@ public class Gruppenphase
     }
 
     /**
-     * ToDo
+     * Öffnet ein Fenster in dem alle Ergebnise aller Gruppen angezeigt werden.
      */
     public void gibAlleSpielergebnise ()
     {
@@ -220,7 +257,7 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Aktualisiert alle Informationen jeder Gruppe.
      */
     private void aktualisiereGruppeninfo()
     {
@@ -231,7 +268,7 @@ public class Gruppenphase
     }
 
     /**
-     *
+     *  Öffnet ein Fenster zur versicherung ob wirklich alle Einträge gelöscht werden sollen. Wenn gewünscht wird die Funktion entferneAlleEinträge() aufgerufen.
      */
     public void löscheAlleEinträge()
     {
@@ -241,7 +278,8 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Entfernt alle Spielergebnis Einträge und löscht die Werte aus der Hashmap Spiele in der jeweiligen Gruppe.
+     * Zusätzlich werden alle Tore und Punkte der Länder auf 0 gesetzt.
      */
     private void entferneAlleEinträge()
     {
@@ -280,7 +318,8 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Öffnet ein Fenster das eine Eingabe erfordert. Um ein Land zu entfernen müssen alle Daten gelöscht werden.
+     * Ist dies Erwünscht wird das Land entfernt, alle Paarungen neu berechnet und Daten aktualisiert und gespeichert.
      */
     public void entferneLand()
     {
@@ -319,7 +358,8 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Öffnet ein Fenster das eine Eingabe erfordert. Um ein Land zu erstellen müssen alle Daten gelöscht werden.
+     * Ist dies Erwünscht wird neuesLand() aufgerufen.
      */
     public void neuesLand()
     {
@@ -337,7 +377,10 @@ public class Gruppenphase
     }    
 
     /**
+     * Ruft in der Gruppe die Methode erstelleLand() auf und fügt somit ein neues Land hinzu.
      * 
+     * @param nameGruppe    Name der Gruppe als String
+     * @param land  Name des Landes als String
      */
     private void neuesLand(String nameGruppe, String land)
     {
@@ -347,7 +390,8 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Öffnet ein neues Fenster das die Eingabe einer neuen Gruppe und Ländern erfordert.
+     * Automatisch wird der Gruppe fortlaufend im Alphabet ein Name zugewiesen.
      */
     public void neueGruppe()
     {
@@ -372,6 +416,11 @@ public class Gruppenphase
         else;
     }
 
+    /**
+     * Gibt den Namen aller Gruppen als Array zurück.
+     * 
+     * @return Array mit den Keys aller Gruppen
+     */
     private String[] gibGruppen()
     {
         StringBuffer daten = new StringBuffer();
@@ -387,7 +436,8 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Öffnet ein Fenste in dem der Name der zu entfernenden Gruppe eingegeben werden kann.
+     * Die Gruppen A-H sind als Standard nicht zu entfernen. Wenn eine Gruppe entfernt wird werden auch deren Länder gelöscht.
      */
     public void entferneGruppe()
     {
@@ -433,7 +483,7 @@ public class Gruppenphase
     }
 
     /**
-     * 
+     * Öffnet ein Fenster in dem das Land eingegeben werden kann und zeigt dann die derzeitigen Tore und den Punktestand an.
      */
     public void zeigeInformationLand()
     {
