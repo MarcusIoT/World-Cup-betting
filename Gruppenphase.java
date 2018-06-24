@@ -7,7 +7,7 @@ import java.util.Arrays;
  * 
  * 
  * @author Marcus Schoch
- * @version 17.06.2018
+ * @version 24.06.2018
  */
 public class Gruppenphase
 {

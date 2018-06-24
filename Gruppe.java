@@ -8,7 +8,7 @@ import java.util.Arrays;
  * 
  *
  * @author Marcus Schoch
- * @version 22.06.2018
+ * @version 24.06.2018
  */
 public class Gruppe
 {
@@ -34,7 +34,9 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Erstellt ein neues Objekt der Klasse Land mit dem übergebenem Namen und leeren Toren und Punktzahl, und fügt es der HashMap Länder hinzu.
+     * Zusätzlich wird diese Information in den Textdateien der Länder und der Gruppe gespeichert.
+     * Zuetzt wird die Gruppeninfo neu geladen und demnach die Paarungen neu berechnet.
      */
     public void erstelleLand(String name)
     {
@@ -60,11 +62,13 @@ public class Gruppe
         ladeGruppeninfo(nameGruppe);
     }
 
-    public void berechnePaarungen()
+     /**
+     * Berechnet alle Paarungen der Länder in der Hashmap Länder in dieser Klasse und speichert diese Information in der Text Datei dieser Gruppe.
+     */
+    private void berechnePaarungen()
     {
         ArrayList teile = new ArrayList<String>();
         String[] länder = gibLänder();
-        int größeSpiele = binominalkoeffizient(gruppenGroesse, 2); //Todoo
         teile.add(String.valueOf(gruppenGroesse));
 
         for (int i = 0; i < länder.length; i++) {
@@ -88,32 +92,10 @@ public class Gruppe
         }
     }
 
-    /**
-     * 
+     /**
+     * Lädt die Iformationen eines Landes aus deren Text Datei und fügt dieses Land der Hashmap Länder hinzu.
      */
-    public int binominalkoeffizient(int n, int k)
-    {        
-        if (k > n) return 0;
-        else {
-            int a = 1;
-            for (int i = n-k+1; i <= n; i++) a *= i;
-            int b = 1;
-            for (int i = 2; i <= k; i++) b *= i;
-            return a / b;
-        }
-    }
-
-    public int gibGroesse()
-    {
-        return gruppenGroesse;
-    }
-
-    public String gibName()
-    {
-        return nameGruppe;
-    }
-
-    public void ladeLand(String name)
+    private void ladeLand(String name)
     {
         String[] teile = gibDatenTeile("Länder", name);
 
@@ -126,7 +108,7 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Lädt alle Länder, die in der Text Datei dieser Gruppe hinterlegt sind und berechtnet die Paarunegen wenn keine vorliegen.
      */
     public void ladeGruppeninfo(String name)
     {
@@ -144,8 +126,11 @@ public class Gruppe
 
         ladeSpiele(teile);
     }
-
-    public void ladeSpiele(String[] teile)
+    
+    /**
+     * Lädt die übergebenen Spiele als Array in die Hashmap spiele in dieser Gruppe.
+     */
+    private void ladeSpiele(String[] teile)
     {
         if(teile.length >= gruppenGroesse+2){
             for (int i = gruppenGroesse+1; i < teile.length; i++) {
@@ -158,7 +143,7 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Lädt die Informationen einer Text Datei mit dem übergebenen Ordner und Dateiname, und übergibt diese als Array.
      */
     public String[] gibDatenTeile(String ordner, String datei)
     {
@@ -174,6 +159,9 @@ public class Gruppe
         return teile;
     }
 
+    /**
+     * Lädt die Informationen einer Text Datei mit dem übergebenen Ordner und Dateiname, und übergibt diese als String.
+     */
     public String gibDaten(String ordner, String datei)
     {
         String daten = "";
@@ -187,7 +175,8 @@ public class Gruppe
     }
 
     /**
-     * ToDo
+     * Gibt alle Spielergebnisse, die Paarungen, als String zurück.
+     * Sind keine vorhanden gibt diese Methode einen Indikator zurück.
      */
     public String gibSpielergebnisDaten()
     {
@@ -206,7 +195,7 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Überprüft ob ein Spielergebnis, egal ob noch leer oder eingetragen, in der Hashmap vorliegt und liefert true zurück sollte dem so sein. 
      */
     public boolean prüfeExistenzSpielergebnis (String land1, String land2)
     {
@@ -222,7 +211,7 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Entfernt die Werte eines Spielergebnises aus den Ländern.
      */
     public void löscheTorePunkteSpielergebnis (String land1, String land2)
     {
@@ -249,7 +238,6 @@ public class Gruppe
         String[] teile = daten.split(":");
         int tore1 = Integer.valueOf(teile[0]);
         int tore2 = Integer.valueOf(teile[1]);
-        System.out.println("Tore1: " + tore1 + "  Tore2: " + tore2);
         if(tore1 == tore2){
             landEins.subtrahiereWerte(tore1, 1);
             landZwei.subtrahiereWerte(tore2, 1);
@@ -265,6 +253,9 @@ public class Gruppe
 
     }
 
+    /**
+     * Liefert true zurück, wenn ein Spielergebnis mit genau dieser Schreibweise vorliegt, ansonten false.
+     */
     public boolean prüfeSchreibweiseSpielergebnis (String land1, String land2)
     {
         String spiel = land1 + ":" + land2;      
@@ -275,7 +266,7 @@ public class Gruppe
     }
 
     /**
-     *
+     * Prüft ob ein Land in dieser Gruppe mit dem übergebenen Namen existiert und liefert true oder false zurück.
      */
     public boolean prüfeLand(String name)
     {
@@ -286,7 +277,7 @@ public class Gruppe
     }
 
     /**
-     *
+     * Ruft gibUpdatedInfo() in dem Land auf, aktualisiert darin die Daten der Tore und Punkte und liefert dann das Array mit allen Werten des Landes zurück.
      */
     public String[] gibUpdatedInfoLand(String name, int tore, int punkte)
     {
@@ -295,7 +286,7 @@ public class Gruppe
     }
 
     /**
-     *
+     * Ruft gibInfo() in dem Land auf und liefert dann das Array mit allen Werten des Landes zurück.
      */
     public String[] gibInfoLand(String name)
     {
@@ -304,7 +295,7 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Speichert alle Länder dieser Gruppe in einem Array und gibt dieses zurück.
      */
     public String[] gibLänder()
     {
@@ -321,7 +312,7 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Löscht alle Werte in der Hashmap Spiele.
      */
     public void löscheSpiele()
     {
@@ -329,10 +320,26 @@ public class Gruppe
     }
 
     /**
-     * 
+     * Löscht alle Werte in der Hashmap Länder.
      */
     public void löscheLänder()
     {
         länder.clear();
+    }
+    
+    /**
+     * Gibt die Gruppengröße als Integer zurück.
+     */
+    public int gibGroesse()
+    {
+        return gruppenGroesse;
+    }
+
+    /**
+     * Gibt den Namen der Gruppe als String zurück.
+     */
+    public String gibName()
+    {
+        return nameGruppe;
     }
 }
