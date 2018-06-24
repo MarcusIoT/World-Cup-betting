@@ -26,7 +26,7 @@ public class Gruppenphase
         ui = new UI();
         ladeGruppen();
     }
-
+    
     /**
      * Liest aus der Text Datei Gruppen die Namen aller präsenten Gruppen aus und lädt diese und deren Informationen in das laufende Programm.
      */
