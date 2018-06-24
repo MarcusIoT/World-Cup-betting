@@ -498,4 +498,15 @@ public class Gruppenphase
             else ui.nachricht("Fehler", "Das Land " + nameLand + " existiert nicht.");
         }      
     }
+    
+    /**
+     * Öffnet ein Fenster zur Bestätigung der Weiterleitung durch den Standardbrowser auf das GitHub Repository dieses Projekts.
+     */
+    public void öffneGithubLink(){
+        if(ui.okAbbrechen("Projekt von Marcus Schoch","Möchten sie den Quellcode auf Github anzeigen?"))
+        {
+            String[] aktuelledaten = {"https://github.com/MarcusIoT/World-Cup-betting"};
+            ui.openLink(aktuelledaten);
+        }    
+    }
 }

@@ -210,4 +210,39 @@ public class UI
         }
         else return null;
     } 
+    
+    /**
+     * Fängt verschiedene Fehlerquellen und Meldungen ab. Bei Erfolg wird im Browser der übergebene Link geöffnet.
+     */
+    public void openLink(String[] args)
+    {
+        if(!java.awt.Desktop.isDesktopSupported())
+        {
+            System.err.println("Desktop wird nicht unterstützt (fatal)");
+            System.exit(1);
+        }
+        if(args.length==0)
+        {
+            System.out.println( "Benutzung: OpenURI [URI [URI ... ]]" );
+            System.exit( 0 );
+        }
+        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+        if(!desktop.isSupported(java.awt.Desktop.Action.BROWSE))
+        {
+            System.err.println( "Desktop unterstützt diese Aktion nicht (fatal)" );
+            System.exit( 1 );
+        }
+        for(String arg:args)
+        {
+            try
+            {
+                java.net.URI uri = new java.net.URI(arg);
+                desktop.browse( uri );
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
+        }
+    }
 }
