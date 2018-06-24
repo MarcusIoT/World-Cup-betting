@@ -1,10 +1,15 @@
-------------------------------------------------------------------------
-World Cup betting by Marcus Schoch
+﻿------------------------------------------------------------------------
+World Cup betting von Marcus Schoch
 ------------------------------------------------------------------------
 
-PROJECT TITLE: World Cup betting
-PURPOSE OF PROJECT: Semester Project of the lecture 'Programmiersprachen 2' / Hs Aalen; Hfg Schwäbisch Gmünd
-VERSION or DATE: Version 1.0 07.05.2018
-HOW TO START THIS PROJECT:
-AUTHORS: Marcus Schoch
-USER INSTRUCTIONS:
+
+PROJEKTTITEL: 			World Cup betting
+
+RAHMEN DES PROJEKTS: 		Semester Project of the lecture 'Programmiersprachen 2' / Hs Aalen; Hfg Schwäbisch Gmünd
+
+DATUM: 				24.06.2018
+GITHUB LINK:			https://github.com/MarcusIoT/World-Cup-betting
+
+AUTHOR: 			Marcus Schoch; HfG; IoT3
+BEDIENUNG:
+			Alle für den Nutzer interessanten Funktionen für ein gutes Erlebnis sind in der Klasse "Gruppenphase". Die Benutzung ist des Weiteren durch ein User Interface gestaltet.
