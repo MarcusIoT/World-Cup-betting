@@ -5,7 +5,7 @@ Serbien
 Costa Rica
 Schweiz:Brasilien- : 
 Schweiz:Serbien- : 
-Schweiz:Costa Rica- : 
+Schweiz:Costa Rica-1:2
 Brasilien:Serbien- : 
 Brasilien:Costa Rica- : 
 Serbien:Costa Rica- : 

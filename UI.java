@@ -5,8 +5,8 @@ import java.util.Arrays;
 /**
  * Die Klasse UI erstellt über awt und swing ein User Interface, welches über die Hauptklasse Gruppenphase aufgerufen wird.
  *
- * @author Marcus Schoch
- * @version 22.06.2018
+ * @author Marcus Schoch; HfG; IoT3
+ * @version 24.06.2018
  */
 public class UI
 {
@@ -21,6 +21,11 @@ public class UI
     /**
      * Öffnet ein Fenster, dass eine Nachricht und Kopfzeile enthält und die Option die Knöpfe "OK" und "Abbrechen" zu wählen.
      * Bei Auswahl von OK durch den Benutzer wird true zurückgeliefert und bei Abbrechen false.
+     * 
+     * @param kopfzeile Text der in der Kopfzeile angezeigt wird
+     * @param nachricht Nachricht die im Körper des Fensters angezeigt wird
+     * 
+     * @return true wenn "OK" gewählt wurde, false wenn das Fenster geschlossen oder "Abbrechen" gewählt wurde.
      */
     public boolean okAbbrechen(String kopfzeile, String nachricht)
     {
@@ -36,6 +41,9 @@ public class UI
 
     /**
      * Öffnet ein Fenster, dass eine Nachricht enthält. Dies kann mit OK oder dem [X] Icon geschlossen werden.
+     * 
+     * @param kopfzeile Text der in der Kopfzeile angezeigt wird
+     * @param nachricht Nachricht die im Körper des Fensters angezeigt wird
      */
     public void nachricht(String kopfzeile, String nachricht)
     {
@@ -51,6 +59,8 @@ public class UI
      * Bei Auswahl von OK durch den Benutzer wird ein Array aller Felder zurückgeliefert und bei Abbrechen null.
      * Es wird zusätzlich die Eingabe von negativen werten der Tore ausgeschlossen und kenntlich gemacht,
      * sowie nur bei ausfüllen aller Felder auch wirklich das Array zurück geliefert.
+     * 
+     * @return daten wenn alle Bedingungen erfüllt sind, ansonsten null
      */
     public String[] eingabeAufforderungSpielergebnis()
     {
@@ -82,6 +92,8 @@ public class UI
     /**
      * Öffnet ein Fenster und zeigt die Gruppen und deren Paarungen und Ergebnise in einem Grid Layout an.
      * Die Große und Anordnung des Layouts wird aufgrund der Gruppenanzahl angepasst.
+     * 
+     * @param daten Daten aller Spielergebnisse
      */
     public void erstelleSpielplan(String daten)
     {
@@ -102,6 +114,8 @@ public class UI
      * Öffnet ein Fenster, in das ein Spielergebnis in vier Felder eingetragen werden kann. 
      * Bei Auswahl von OK durch den Benutzer wird ein Array aller Felder zurückgeliefert und bei Abbrechen null.
      * Nur bei ausfüllen aller Felder auch wirklich das Array zurück geliefert, ansonsten erscheint eine Nachricht.
+     * 
+     * @return daten wenn alle Bedingungen erfüllt sind, ansonsten null
      */
     public String[] eingabeAufforderungNeuesLand()
     {
@@ -132,6 +146,8 @@ public class UI
      * Bei Auswahl von OK durch den Benutzer wird ein Array aller eingegebenen Felder zurückgeliefert und bei Abbrechen null.
      * Die Eingabe von mindestens zwei Feldern ist eine Bedingung, so liefert diese Methode auch nur ein passendes Array zurück,
      * wenn diese erfüllt ist.
+     * 
+     * @return daten wenn alle Bedingungen erfüllt sind, ansonsten null
      */
     public String[] eingabeAufforderungNeueGruppe()
     {
@@ -169,6 +185,8 @@ public class UI
     /**
      * Öffnet ein Fenster mit einer Nachricht und einem Feld zur Eingabe entweder möglicher Länder oder Gruppen je nach verwendung.
      * Deshalb müssen die Nachricht, Kopfzeile und Beschreibung auch übergeben werden um die Variabilität zu gewährleisten.
+     * 
+     * @return daten wenn alle Bedingungen erfüllt sind, ansonsten null
      */
     public String eingabeAufforderungEinFeld(String kopfzeile, String nachricht, String textfeld)
     {

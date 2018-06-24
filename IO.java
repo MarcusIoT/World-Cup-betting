@@ -5,8 +5,8 @@ import java.nio.file.*;
 /**
  * Diese Klasse übernimmt das Auslesen und Speichern von Informationen in .txt Dateien.
  *
- * @author Marcus Schoch
- * @version 22.06.2018
+ * @author Marcus Schoch; HfG; IoT3
+ * @version 24.06.2018
  */
 public class IO
 {
@@ -21,6 +21,11 @@ public class IO
     /**
      * Liest alle Zeilen aus einer Textdatei mit dem übergebenen Namen und Ordnerverzeichnis aus und übergibt diese als String.
      * Die Zeilen und damit auch die einzelnen Informationen sind in dem String durch ein "/" getrennt.
+     * 
+     * @param ordner    Das Ordner Verzeichnis, entweder "Gruppen" oder "Länder"
+     * @param dateiname Der Dateiname der Text Datei als String
+     * 
+     * @return daten aller Zeilen getrennt durch "/" in einem String
      */
     public String ladeDatei(String ordner, String dateiname) throws IOException
     {
@@ -45,6 +50,8 @@ public class IO
     /**
      * Speichert übergebenes Array in die Text Datei des Landes, dessen Namen in dem Array mit übergeben wird.
      * Jeder Wert des Arrays wird in einer neuen Zeile gespeichert.
+     * 
+     * @param teile  Informationen, die für jeden Teil in eine neue Zeile geschrieben werden sollen.
      */
     public  void speichereLand(String[] teile) throws IOException
     {
@@ -63,6 +70,8 @@ public class IO
     /**
      * Speichert übergebenes Array in die Text Datei der Gruppe, dessen Namen in dem Array mit übergeben wird.
      * Jeder Wert des Arrays wird in einer neuen Zeile gespeichert.
+     * 
+     * @param teile  Informationen, die für jeden Teil in eine neue Zeile geschrieben werden sollen.
      */
     public  void resetGruppe(String[] teile) throws IOException
     {
@@ -81,10 +90,13 @@ public class IO
     /**
      * Speichert übergebenes Array in die Text Datei der Gruppe, dessen Namen separat übergeben wird.
      * Jeder Wert des Arrays wird in einer neuen Zeile gespeichert.
+     * 
+     * @param DateiName  Der Dateiname der Text Datei als String
+     * @param teile  Informationen, die für jeden Teil in eine neue Zeile geschrieben werden sollen.
      */
-    public  void speichereGruppe(String name, String[] teile) throws IOException
+    public  void speichereGruppe(String dateiName, String[] teile) throws IOException
     {
-        String datei = "Gruppen/" + name + ".txt";
+        String datei = "Gruppen/" + dateiName + ".txt";
         FileWriter fw = new FileWriter(datei);
         BufferedWriter bw = new BufferedWriter(fw);
 
@@ -98,6 +110,8 @@ public class IO
 
     /**
      * Fügt übergebenen String lediglich der text Datei "Gruppen" hinzu, die vorhandenen Einträge bleiben dabei bestehen.
+     * 
+     * @param daten Information die der Datei angehängt werden soll
      */
     public  void appendGruppe(String daten) throws IOException
     {
@@ -113,10 +127,13 @@ public class IO
 
     /**
      * Löscht die Text Datei mit dem übergebenen Namen in dem übergebenen Verzeichnis.
+     * 
+     * @param ordner    Das Ordner Verzeichnis, entweder "Gruppen" oder "Länder"
+     * @param dateiname Der Dateiname der Text Datei als String
      */
-    public  void löscheDatei(String ordner, String name) throws IOException
+    public  void löscheDatei(String ordner, String dateiName) throws IOException
     {
-        String datei = ordner + "/" + name + ".txt";
+        String datei = ordner + "/" + dateiName + ".txt";
         Files.deleteIfExists(Paths.get(datei));
     }
 }

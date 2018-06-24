@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * 
  * 
- * @author Marcus Schoch
+ * @author Marcus Schoch; HfG; IoT3
  * @version 24.06.2018
  */
 public class Gruppenphase
@@ -108,7 +108,7 @@ public class Gruppenphase
         return punkte; // muss noch fertig
     }
 
-    public void updateSpielergebnis()
+    public void neuesSpielergebnis()
     {
         aktualisiereGruppeninfo();
         String[] datenEingabe = ui.eingabeAufforderungSpielergebnis();
@@ -135,14 +135,14 @@ public class Gruppenphase
                     speichereLand(land2, tore2, punkte[1]);
                     String daten = land1 + ":" + land2 + "-" + tore1 + ":" + tore2;
                     speichereGruppe(nameGruppe, updateGruppeSpielinfo(nameGruppe, land1, land2, daten));
-                    gruppe.ladeGruppeninfo(nameGruppe);
+                    gruppe.ladeGruppeninfo();
                 }
                 else if(gruppe.prüfeSchreibweiseSpielergebnis(land2, land1) == true && check == true){
                     speichereLand(land1, tore1, punkte[0]); 
                     speichereLand(land2, tore2, punkte[1]);
                     String daten = land2 + ":" + land1 + "-" + tore2 + ":" + tore1;
                     speichereGruppe(nameGruppe, updateGruppeSpielinfo(nameGruppe, land2, land1, daten));
-                    gruppe.ladeGruppeninfo(nameGruppe);
+                    gruppe.ladeGruppeninfo();
                 }
             }
             else{ui.nachricht("Fehler", "Die Länder existieren nicht oder sind nicht in einer Gruppe.");}
@@ -210,7 +210,7 @@ public class Gruppenphase
 
         for (String key : gruppen.keySet()) {
             Gruppe gruppe = gruppen.get(key);
-            gruppe.ladeGruppeninfo(key);
+            gruppe.ladeGruppeninfo();
             daten += "Gruppe " + key + "<br>";
             daten += gruppe.gibSpielergebnisDaten();
             daten += "!";
@@ -226,7 +226,7 @@ public class Gruppenphase
     {
         for (String key : gruppen.keySet()) {
             Gruppe gruppe = gruppen.get(key);
-            gruppe.ladeGruppeninfo(key);
+            gruppe.ladeGruppeninfo();
         }
     }
 
@@ -305,7 +305,7 @@ public class Gruppenphase
                     daten.toArray( datenGruppe );
                     speichereGruppe(name, datenGruppe);
                     gruppe.löscheLänder();
-                    gruppe.ladeGruppeninfo(name);
+                    gruppe.ladeGruppeninfo();
                     try{
                         io.löscheDatei("Länder", name);
                     }
@@ -435,7 +435,7 @@ public class Gruppenphase
     /**
      * 
      */
-    public void ZeigeTorePunkteLand()
+    public void zeigeInformationLand()
     {
         String daten = ui.eingabeAufforderungEinFeld("Zeige Land", "", "Name des Landes");
         if(daten != null){
