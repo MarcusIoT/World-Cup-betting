@@ -26,7 +26,7 @@ public class Gruppenphase
         ui = new UI();
         ladeGruppen();
     }
-    
+
     /**
      * Liest aus der Text Datei Gruppen die Namen aller präsenten Gruppen aus und lädt diese und deren Informationen in das laufende Programm.
      */
@@ -98,7 +98,7 @@ public class Gruppenphase
         else{return null;}
 
     }
-        
+
     /**
      * Berechnet die Punkte der Länder nach einem Spiel und gibt diese in einem Array zurück.
      * 
@@ -130,8 +130,8 @@ public class Gruppenphase
         if(datenEingabe != null){ 
             int tore1 = Integer.valueOf(datenEingabe[1]);
             int tore2 = Integer.valueOf(datenEingabe[3]);
-            String land1 = schreibeGroß(datenEingabe[0]);
-            String land2 = schreibeGroß(datenEingabe[2]);
+            String land1 = ändereUmlaute(schreibeGroß(datenEingabe[0]));
+            String land2 = ändereUmlaute(schreibeGroß(datenEingabe[2]));
             boolean check = true;
             int[] punkte = berechnePunkte(tore1, tore2);
 
@@ -210,7 +210,7 @@ public class Gruppenphase
      */
     private String[] updateGruppeSpielinfo(String nameGruppe, String land1, String land2, String daten)
     {        
-        
+
         Gruppe gruppe = gruppen.get(nameGruppe);
         String gruppenDatenAlt = gruppe.gibDaten("Gruppen", nameGruppe);
 
@@ -226,7 +226,7 @@ public class Gruppenphase
     }
 
     /**
-     * Ändert den ersten Buchstaben des übergebenen Strings in einen Großbuchstaben um.
+     * Ändert den ersten Buchstaben des übergebenen Strings in einen Großbuchstaben um, den Rest in Kleinbuchstaben.
      * 
      * @param eingabe   Irgendeinen String
      * 
@@ -234,7 +234,30 @@ public class Gruppenphase
      */
     private String schreibeGroß(String eingabe)
     {
-        String ausgabe = eingabe.substring(0, 1).toUpperCase() + eingabe.substring(1);
+        String ausgabe = eingabe.substring(0, 1).toUpperCase() + eingabe.substring(1).toLowerCase();
+        ausgabe = ausgabe.replaceAll("-a"," A");
+        ausgabe = ausgabe.replaceAll(" a"," A");
+        return ausgabe;
+    }
+
+    /**
+     * Ändert kleine und groß geschriebene Umlaute.
+     * 
+     * @param eingabe   Irgendeinen String
+     * 
+     * @return diesen String mit geänderten Umlauten
+     */
+    public String ändereUmlaute(String eingabe)
+    {
+        String ausgabe = eingabe.replace("ü", "ue")
+            .replace("ö", "oe")
+            .replace("ä", "ae")
+            .replace("ß", "ss");
+
+        ausgabe = ausgabe.replace("Ü", "Ue")
+        .replace("Ö", "Oe")
+        .replace("Ä", "Ae");
+
         return ausgabe;
     }
 
@@ -498,7 +521,7 @@ public class Gruppenphase
             else ui.nachricht("Fehler", "Das Land " + nameLand + " existiert nicht.");
         }      
     }
-    
+
     /**
      * Öffnet ein Fenster zur Bestätigung der Weiterleitung durch den Standardbrowser auf das GitHub Repository dieses Projekts.
      */
