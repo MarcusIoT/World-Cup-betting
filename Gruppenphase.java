@@ -247,7 +247,7 @@ public class Gruppenphase
      * 
      * @return diesen String mit geänderten Umlauten
      */
-    public String ändereUmlaute(String eingabe)
+    private String ändereUmlaute(String eingabe)
     {
         String ausgabe = eingabe.replace("ü", "ue")
             .replace("ö", "oe")
@@ -348,7 +348,7 @@ public class Gruppenphase
     {
         String check = ui.eingabeAufforderungEinFeld("Land Entfernen", "Wenn sie ein Land aus einer Gruppe entfernen werden alle Daten resetted.", "Name des Landes");
         if(check != null){
-            String nameLand = schreibeGroß(check);
+            String nameLand = ändereUmlaute(schreibeGroß(check));
             Gruppe gruppe = gibGruppeWennLand(nameLand);
             if(gruppe != null){
                 if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
@@ -391,7 +391,7 @@ public class Gruppenphase
             if(ui.okAbbrechen("Bestätigung", "Wollen sie wirklich alle Einträge löschen?") == true){
                 String gruppe = daten[0];
                 if(gruppen.containsKey(gruppe) == true){
-                    String name = schreibeGroß(daten[1]);
+                    String name = ändereUmlaute(schreibeGroß(daten[1]));
                     neuesLand(gruppe, name);
                 }
                 else ui.nachricht("Fehler", "Die Gruppe " + gruppe + " existiert nicht.");
@@ -409,7 +409,7 @@ public class Gruppenphase
     {
         entferneAlleEinträge();
         Gruppe gruppe = gruppen.get(schreibeGroß(nameGruppe));
-        gruppe.erstelleLand(schreibeGroß(land));
+        gruppe.erstelleLand(ändereUmlaute(schreibeGroß(land)));
     }
 
     /**
@@ -512,7 +512,7 @@ public class Gruppenphase
     {
         String daten = ui.eingabeAufforderungEinFeld("Zeige Land", "", "Name des Landes");
         if(daten != null){
-            String nameLand = schreibeGroß(daten);
+            String nameLand = ändereUmlaute(schreibeGroß(daten));
             Gruppe gruppe = gibGruppeWennLand(nameLand);
             if(gruppe != null){
                 String[] torePunkte = gruppe.gibInfoLand(nameLand);
