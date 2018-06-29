@@ -1,7 +1,10 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.GridLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import java.util.ArrayList;
-import java.util.Arrays;
 /**
  * Die Klasse UI erstellt über awt und swing ein User Interface, welches über die Hauptklasse Gruppenphase aufgerufen wird.
  *

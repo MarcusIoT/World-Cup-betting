@@ -1,7 +1,5 @@
 import java.util.HashMap;
-import java.math.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 /**
  * Die Klasse Gruppe beinhaltet eine Hashmap in der als Key ein String vorliegt und als Value ein Objekt der Klasse Land, 
  * sowie eine Hasmap in der als Key ein String in Form "Land1:Land2" udn als Value ein String in Form "Tore1:Tore2" vorliegt.

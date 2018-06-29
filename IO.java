@@ -1,7 +1,10 @@
-import java.io.*;
-import java.lang.*;
-import java.nio.file.*;
-
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 /**
  * Diese Klasse übernimmt das Auslesen und Speichern von Informationen in .txt Dateien.
  *
