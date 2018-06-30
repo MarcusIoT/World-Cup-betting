@@ -3,9 +3,9 @@ Tunesien
 Belgien
 Panama
 England
-Tunesien:Belgien-2:5
+Tunesien:Belgien- : 
 Tunesien:Panama- : 
-Tunesien:England-1:2
-Belgien:Panama-3:0
+Tunesien:England- : 
+Belgien:Panama- : 
 Belgien:England- : 
-Panama:England-1:6
+Panama:England- : 

@@ -3,9 +3,9 @@ Kroatien
 Argentinien
 Nigeria
 Island
-Kroatien:Argentinien-3:0
-Kroatien:Nigeria-2:0
+Kroatien:Argentinien- : 
+Kroatien:Nigeria- : 
 Kroatien:Island- : 
 Argentinien:Nigeria- : 
-Argentinien:Island-1:1
-Nigeria:Island-2:0
+Argentinien:Island- : 
+Nigeria:Island- : 
